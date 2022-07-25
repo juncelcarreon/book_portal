@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\BooksImport;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
@@ -40,7 +41,7 @@ class BookController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            'title' => 'required',
+            'title' => 'required|unique:books',
         ]);
 
         Book::create($request->all());
@@ -57,7 +58,7 @@ class BookController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            'title' => 'required',
+            'title' => 'required|'. Rule::unique('books')->ignore($book->id),
         ]);
 
         $book->update($request->all());
@@ -69,6 +70,6 @@ class BookController extends Controller
     {
         $book->delete();
 
-       return redirect()->route('book.index')->with('success','Author has been successfully deleted from the database');
+       return redirect()->route('book.index')->with('success','Book has been successfully deleted from the database');
     }
 }
