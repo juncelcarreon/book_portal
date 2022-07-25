@@ -11,6 +11,12 @@
                 </a>
                 <form action="{{route('book.import-bulk')}}" method="post" class="card p-4 shadow" enctype="multipart/form-data">
                     <h5 class="text-center">Import Book</h5>
+                    @if (Session::has('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span>{{Session::get('success')}}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    @endif
                     @csrf
                     <div class="form-group my-2">
                         <label for="email">Excel File</label>

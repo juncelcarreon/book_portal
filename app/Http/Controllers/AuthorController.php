@@ -29,7 +29,7 @@ class AuthorController extends Controller
         ]);
 
         Excel::import(new AuthorsImport, $request->file('file')->store('temp'));
-        return back();
+        return back()->with('success', 'Successfully imported data');
     }
 
     public function create()

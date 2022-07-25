@@ -45,5 +45,5 @@ Route::middleware('auth')->group(function(){
 
 
     Route::get('/books/{book}', [BookController::class, 'edit'])->name('book.edit');
-    Route::delete('/books/{book}', [BookController::clas, 'delete'])->name('book.delete');
+    Route::delete('/books/{book}', [BookController::class, 'delete'])->name('book.delete');
 });
