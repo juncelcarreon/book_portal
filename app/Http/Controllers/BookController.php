@@ -35,4 +35,14 @@ class BookController extends Controller
     {
         return view('book.create');
     }
+
+    public function edit(Book $book)
+    {
+        return view('book.edit', compact('book'));
+    }
+
+    public function delete(Book $book)
+    {
+
+    }
 }

@@ -23,7 +23,7 @@ class BooksImport implements ToModel, WithHeadingRow
         $book = Book::where('title', $row['title'] ?? $row['producttitle'])->get();
         if(count($book) == 0 ){
             return new Book([
-                'product_id' => $row['alternativeproductid#'] ?? '',
+                'product_id' => $row['alternativeproductid'] ?? '',
                 'title' => $row['producttitle'] ?? $row['title']
             ]);
         }

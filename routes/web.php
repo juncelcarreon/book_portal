@@ -42,4 +42,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/books/import', [BookController::class, 'importPage'])->name('book.import-page');
     Route::post('/books/import', [BookController::class, 'import'])->name('book.import-bulk');
     Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
+
+
+    Route::get('/books/{book}', [BookController::class, 'edit'])->name('book.edit');
+    Route::delete('/books/{book}', [BookController::clas, 'delete'])->name('book.delete');
 });
