@@ -35,4 +35,16 @@ class BookController extends Controller
     {
         return view('book.create');
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required',
+            'title' => 'required',
+        ]);
+
+        Book::create($request->all());
+
+        return redirect(route('book.create'))->with('success','Book successfully added to database');
+    }
 }

@@ -45,4 +45,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/books/import', [BookController::class, 'importPage'])->name('book.import-page');
     Route::post('/books/import', [BookController::class, 'import'])->name('book.import-bulk');
     Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
+
+    Route::post('/books/create', [BookController::class, 'store'])->name('book.store');
 });

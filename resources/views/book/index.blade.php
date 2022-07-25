@@ -26,7 +26,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>Product ID</th>
-                        <th>Titlte</th>
+                        <th>Title</th>
                     </tr>
                 </thead>
                 <tbody>
