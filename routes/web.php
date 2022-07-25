@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,4 +37,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/authors/create', [AuthorController::class, 'create'])->name('author.create');
     Route::get('/authors/{author}', [AuthorController::class, 'edit'])->name('author.edit');
 
+
+    Route::get('/books', [BookController::class, 'index'])->name('book.index');
+    Route::get('/books/import', [BookController::class, 'importPage'])->name('book.import-page');
+    Route::post('/books/import', [BookController::class, 'import'])->name('book.import-bulk');
+    Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
 });
