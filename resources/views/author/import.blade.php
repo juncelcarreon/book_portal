@@ -10,6 +10,7 @@
                       </svg>
                 </a>
                 <form action="{{route('author.import-bulk')}}" method="post" class="card p-4 shadow" enctype="multipart/form-data">
+                    <h5 class="text-center">Import Author</h5>
                     @csrf
                     <div class="form-group my-2">
                         <label for="email">Excel File</label>

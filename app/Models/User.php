@@ -44,6 +44,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    /**
+     * This function will return the name of author
+     * Return value will be firstname then lastname
+     * Ex: John Doe
+     */
     public function getFullName()
     {
         return $this->firstname .' '. $this->lastname;

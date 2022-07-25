@@ -12,6 +12,7 @@
                       </svg>
                 </a>
                 <form action="" method="post" class="card p-4 shadow">
+                    <h5 class="text-center">Add New Author</h5>
                     @csrf
                     <div class="form-group my-1">
                         <label for="name">Author Name</label>
