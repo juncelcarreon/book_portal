@@ -9,8 +9,14 @@
                     <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
                   </svg>
             </a>
-            <form action="" method="post" class="card p-4 shadow">
+            <form action="{{ route('author.update',['author' => $author]) }}" method="post" class="card p-4 shadow">
                 <h5 class="text-center">Update Author</h5>
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span>{{ $message }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
                 @csrf
                 @method('PUT')
                 <div class="form-group my-1">
