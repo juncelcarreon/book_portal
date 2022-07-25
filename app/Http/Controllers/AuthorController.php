@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\AuthorsImport;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -46,6 +47,12 @@ class AuthorController extends Controller
         *   ---------------------------
         */
 
+        $request->validate([
+            'name' => 'required|unique:authors',
+            'email' => 'required',
+            'contact_number' => 'required',
+            'address' => 'required',
+        ]);
 
         /**
          * Store the validated data to database
@@ -53,14 +60,14 @@ class AuthorController extends Controller
          * ex: ModelName::create({validated data here...})
          */
 
-
+        Author::create($request->all());
 
          /**
           * Redirect the page to author.create
           * Add session with value of { Author successfully added to database }
           */
 
-
+        return redirect(route('author.create'))->with('success','Author successfully added to database');
     }
 
     public function edit(Author $author)
@@ -78,6 +85,13 @@ class AuthorController extends Controller
         *   ---------------------------
         */
 
+        $request->validate([
+            'name' => 'required|'. Rule::unique('authors')->ignore($author->id),
+            'email' => 'required',
+            'contact_number' => 'required',
+            'address' => 'required',
+        ]);
+
         /**
          * Since the author is auto binded to the Model
          * We can sure that the the author exist in the database
@@ -85,11 +99,15 @@ class AuthorController extends Controller
          * To achieve that use the modelVariable->update()
          */
 
+        $author->update($request->all());
 
          /**
           * Redirect the page to author.edit
           * Add session with value of { Author successfully updated to the database }
           */
+
+        return redirect()->route('author.edit', ['author' => $author])->with('success','Author successfully updated to the database');
+
 
     }
 
@@ -101,11 +119,15 @@ class AuthorController extends Controller
          * To achieve that, use the authorVariable->delete()
          */
 
+        $author->delete();
 
          /**
           * Redirect to author.index
           * Also add session with the value of { Author has been successfully deleted from the database }
           */
+
+        return redirect()->route('author.index')->with('success','Author has been successfully deleted from the database');
+
 
     }
 }
