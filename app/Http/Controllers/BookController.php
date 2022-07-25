@@ -29,7 +29,7 @@ class BookController extends Controller
         ]);
 
         Excel::import(new BooksImport, $request->file('file')->store('temp'));
-        return back();
+        return back()->with('success', 'Successfully imported data');
     }
 
     public function create()
