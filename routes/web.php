@@ -36,7 +36,6 @@ Route::middleware('auth')->group(function(){
     Route::post('/authors/import', [AuthorController::class, 'import'])->name('author.import-bulk');
     Route::get('/authors/create', [AuthorController::class, 'create'])->name('author.create');
     Route::get('/authors/{author}', [AuthorController::class, 'edit'])->name('author.edit');
-
     Route::post('/authors/create', [AuthorController::class, 'store'])->name('author.store');
     Route::put('/authors/{author}', [AuthorController::class, 'update'])->name('author.update');
     Route::delete('/authors/{author}', [AuthorController::class, 'delete'])->name('author.delete');
@@ -45,6 +44,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/books/import', [BookController::class, 'importPage'])->name('book.import-page');
     Route::post('/books/import', [BookController::class, 'import'])->name('book.import-bulk');
     Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
-
+    Route::get('/books/{book}', [BookController::class, 'edit'])->name('book.edit');
     Route::post('/books/create', [BookController::class, 'store'])->name('book.store');
+    Route::put('/books/{book}', [BookController::class, 'update'])->name('book.update');
+    Route::delete('/books/{book}', [BookController::class, 'delete'])->name('book.delete');
 });

@@ -12,11 +12,11 @@
             <form action="{{ route('author.update',['author' => $author]) }}" method="post" class="card p-4 shadow">
                 <h5 class="text-center">Update Author</h5>
                 @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <span>{{ $message }}</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    @endif
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span>{{ $message }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
                 @csrf
                 @method('PUT')
                 <div class="form-group my-1">

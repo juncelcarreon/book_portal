@@ -47,4 +47,28 @@ class BookController extends Controller
 
         return redirect(route('book.create'))->with('success','Book successfully added to database');
     }
+
+    public function edit(Book $book)
+    {
+        return view('book.edit', compact('book'));
+    }
+
+    public function update(Request $request, Book $book)
+    {
+        $request->validate([
+            'product_id' => 'required',
+            'title' => 'required',
+        ]);
+
+        $book->update($request->all());
+
+        return redirect()->route('book.edit', ['book' => $book])->with('success','Book successfully updated to the database');
+    }
+
+    public function delete(Book $book)
+    {
+        $book->delete();
+
+       return redirect()->route('book.index')->with('success','Author has been successfully deleted from the database');
+    }
 }
