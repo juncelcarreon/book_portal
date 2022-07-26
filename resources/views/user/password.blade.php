@@ -17,10 +17,16 @@
                 <div class="form-group my-2">
                     <label for="current_password">Current Password</label>
                     <input type="password" name="current_password" id="current_password" class="form-control">
+                    @error('current_password')
+                        <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group my-2">
                     <label for="new_password">New Password</label>
                     <input type="password" name="new_password" id="new_password" class="form-control">
+                    @error('new_password')
+                        <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group my-2">
                     <label for="new_password_confirmation">Confirm New Password</label>

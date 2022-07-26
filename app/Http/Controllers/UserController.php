@@ -43,5 +43,7 @@ class UserController extends Controller
             $user->update(['password' => Hash::make($request->new_password)]);
             return redirect(route('user.edit-password'))->with('success', 'Password has been successfully updated!');
         }
+
+        return redirect()->back()->withErrors(['current_password' =>"Password doesn't match the current password!"]);
     }
 }

@@ -16,15 +16,21 @@
                 @csrf
                 <div class="form-group my-2">
                     <label for="firstname">Firstname</label>
-                    <input type="text" name="firstname" id="firstname" class="form-control" value="{{auth()->user()->firstname}}">
+                    <input type="text" name="firstname" id="firstname" class="form-control" value="{{auth()->user()->firstname ?? old('firstname')}}">
+                    @error('firstname')
+                        <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group my-2">
                     <label for="lastname">Lastname</label>
-                    <input type="text" name="lastname" id="lastname" class="form-control" value="{{auth()->user()->lastname}}">
+                    <input type="text" name="lastname" id="lastname" class="form-control" value="{{auth()->user()->lastname ?? old('lastname')}}">
+                    @error('lastname')
+                        <small class="text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="form-group my-2">
                     <label for="middlename">Middlename</label>
-                    <input type="text" name="middlename" id="middlename" class="form-control" value="{{auth()->user()->middlename}}">
+                    <input type="text" name="middlename" id="middlename" class="form-control" value="{{auth()->user()->middlename ?? old('middlename')}}">
                 </div>
                 <div class="form-group my-2">
                     <label for="">Email</label>
