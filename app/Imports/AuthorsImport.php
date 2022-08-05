@@ -19,12 +19,12 @@ class AuthorsImport implements ToModel, WithHeadingRow
         if(count($author) == 0){
             return new Author([
                 'name' => $row['name'],
-                'email' => $row['email'],
-                'contact_number' => $row['contact_number'],
+                'uid' => $row['id'],
+                'email' => $row['email_address'],
+                'contact_number' => $row['home_phone'],
                 'address' => $row['address']
             ]);
         }
-
     }
 
     public function headingRow(): int
