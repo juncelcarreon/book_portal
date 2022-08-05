@@ -23,7 +23,7 @@
                 Transactions
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{route('user.profile')}}">POD</a></li>
+                <li><a class="dropdown-item" href="{{route('pod.index')}}">POD</a></li>
                 <li><a class="dropdown-item" href="{{route('user.edit-password')}}">Ebook</a></li>
               </ul>
           </li>

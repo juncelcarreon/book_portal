@@ -15,6 +15,18 @@ class CreatePodTransactionsTable extends Migration
     {
         Schema::create('pod_transactions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('author_id');
+            $table->foreign('author_id')->references('id')->on('authors');
+            $table->unsignedBigInteger('book_id');
+            $table->foreign('book_id')->references('id')->on('books');
+            $table->year('year');
+            $table->string('month');
+            $table->string('flag');
+            $table->string('status')->nullable();
+            $table->string('format');
+            $table->integer('quantity');
+            $table->double('price');
+            $table->double('royalty');
             $table->timestamps();
         });
     }

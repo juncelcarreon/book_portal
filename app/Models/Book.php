@@ -13,4 +13,9 @@ class Book extends Model
         'product_id',
         'title'
     ];
+
+    public function pod_transcations()
+    {
+        return $this->hasMany(PodTransaction::class);
+    }
 }

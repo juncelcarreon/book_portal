@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\PodTransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,5 +62,12 @@ Route::middleware('auth')->group(function(){
         Route::post('/books/create', 'store')->name('book.store');
         Route::put('/books/{book}', 'update')->name('book.update');
         Route::delete('/books/{book}', 'delete')->name('book.delete');
+    });
+
+    Route::controller(PodTransactionController::class)->group(function(){
+        Route::get('/pod','index')->name('pod.index');
+        Route::get('/pod/import','importPage')->name('pod.import-page');
+        Route::post('/pod/import', 'import')->name('pod.import-bulk');
+        Route::get('/pod/create', 'create')->name('pod.create');
     });
 });

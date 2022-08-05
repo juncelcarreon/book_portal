@@ -16,4 +16,11 @@ class Author extends Model
         'contact_number',
         'address',
     ];
+
+    public function pod_transcations()
+    {
+        return $this->hasMany(PodTransaction::class);
+    }
+
+
 }
