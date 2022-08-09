@@ -6,13 +6,17 @@
     <div class="container">
         <div class="row justify-content-center align-content-center mt-5">
             <div class="col-md-5">
-                <a href="{{route('pod.index')}}" class="btn btn-outline-primary my-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
-                      </svg>
-                </a>
-                <form action="" method="post" class="card p-4 shadow">
-                    <h5 class="text-center">Add New Book</h5>
+                <form action="{{route('pod.store')}}" method="post" class="card p-4 shadow">
+                    <div class="w-100 d-flex">
+                        <a href="{{ route('pod.index')}}" class="ms-auto text-decoration-none text-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-x" viewBox="0 0 16 16">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </a>
+                    </div>
+                    <h5 class="text-center">Add Transaction</h5>
                     @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <span>{{ $message }}</span>
@@ -22,33 +26,98 @@
                     @csrf
                     <div class="form-group my-1">
                         <label for="author">Author</label>
-                        <input type="text" name="author" id="author" class="form-control" placeholder="John Doe">
+                        <select name="author" id="author" class="form-select">
+                            <option value="{{old('author')}}" disabled selected>Select One</option>
+                            @foreach ($authors as $author)
+                            <option value="{{$author->id}}">{{$author->name}}</option>
+                            @endforeach
+                        </select>
                         @error('author')
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
                         <label for="book_title">Book Title</label>
-                        <input type="text" name="book_title" id="book_title" class="form-control">
+                        <select name="book_title" id="book_title" class="form-select">
+                            <option class="text-wrap" value="{{old('book_title')}}" disabled selected>Select One</option>
+                            @foreach ($books as $book)
+                            <option class="text-wrap" value="{{$book->id}}">{{$book->title}}</option>
+                            @endforeach
+                        </select>
                         @error('book_title')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
                         <label for="year">Year</label>
-                        <input type="text" class="form-control" name="datepicker" id="datepicker" />
+                        <input type="text" class="form-control" name="year" id="year" value="{{old('year')}}">
                         @error('year')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
-                    <div class="form-group my-1">
+                    <div class="form-group my-2">
                         <label for="month">Month</label>
-                        <input type="text" name="month" id="month" class="form-control">
+                        <select name="month" id="month" class="form-select">
+                            <option value="{{old('month')}}" disabled selected>Select One</option>
+                            @foreach ($months as $key => $value)
+                                @if (old('month') == $key)
+                                    <option value="{{$key}}" selected>{{$value == '' ? 'None' : $value }}</option>
+                                @else
+                                    <option value="{{$key}}">{{$value == '' ? 'None' : $value }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                         @error('month')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
-
+                    <div class="form-group my-1">
+                        <label for="flag">Flag</label>
+                        <select name="flag" class="form-control" required>
+                            <option value="" disabled selected>Select one</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        @error('flag')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="status">Status</label>
+                        <select name="status" class="form-control" required>
+                            <option value="" disabled selected>Select one</option>
+                            <option value="">Unpaid</option>
+                            <option value="Paid">Paid</option>
+                        </select>
+                        @error('status')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="format">Format</label>
+                        <select name="format" class="form-control" required>
+                            <option value="" disabled selected>Select one</option>
+                            <option value="Paperback">Paperback</option>
+                            <option value="Hardback">Hardback</option>
+                        </select>
+                        @error('format')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" name="quantity" id="quantity" class="form-control" value="{{old('quantity')}}">
+                        @error('quantity')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="price">Price</label>
+                        <input type="number" name="price" id="price" class="form-control" value="{{old('price')}}">
+                        @error('price')
+                        <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
                     <div class="form-group my-1">
                         <button type="submit" class="btn btn-primary">Add Book</button>
                     </div>
@@ -63,7 +132,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 <script>
    $(document).ready(function(){
-  $("#datepicker").datepicker({
+  $("#year").datepicker({
      format: "yyyy",
      viewMode: "years",
      minViewMode: "years",

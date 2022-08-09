@@ -64,10 +64,14 @@ Route::middleware('auth')->group(function(){
         Route::delete('/books/{book}', 'delete')->name('book.delete');
     });
 
-    Route::controller(PodTransactionController::class)->group(function(){
-        Route::get('/pod','index')->name('pod.index');
-        Route::get('/pod/import','importPage')->name('pod.import-page');
-        Route::post('/pod/import', 'import')->name('pod.import-bulk');
-        Route::get('/pod/create', 'create')->name('pod.create');
+    Route::controller(PodTransactionController::class)->prefix('pod')->group(function(){
+        Route::get('/','index')->name('pod.index');
+        Route::get('/import','importPage')->name('pod.import-page');
+        Route::post('/import', 'import')->name('pod.import-bulk');
+        Route::get('/create', 'create')->name('pod.create');
+        Route::post('/create', 'store')->name('pod.store');
+        Route::get('/{pod}/edit', 'edit')->name('pod.edit');
+        Route::put('/{pod}', 'update')->name('pod.update');
+        Route::get('/{pod}', 'delete')->name('pod.delete');
     });
 });
