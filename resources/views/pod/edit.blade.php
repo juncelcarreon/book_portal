@@ -38,7 +38,7 @@
                     <div class="form-group my-1">
                         <label for="book_title">Book Title</label>
                         <select name="book_title" id="book_title" class="form-select">
-                            <option class="text-wrap" value="{{old('book_title')}}" disabled selected>Select One</option>
+                            <option class="text-wrap" value="{{old('book_title') ?? $pod->book_title}}" disabled selected>Select One</option>
                             @foreach ($books as $book)
                             <option class="text-wrap" value="{{$book->id}}">{{$book->title}}</option>
                             @endforeach
@@ -49,7 +49,7 @@
                     </div>
                     <div class="form-group my-1">
                         <label for="year">Year</label>
-                        <input type="text" class="form-control" name="year" id="year" value="{{old('year')}}">
+                        <input type="text" class="form-control" name="year" id="year" value="{{old('year') ?? $pod->year}}">
                         @error('year')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-group my-1">
                         <label for="status">Status</label>
-                        <select name="status" class="form-control" required>
+                        <select name="status" class="form-control">
                             <option value="" disabled selected>Select one</option>
                             <option value="">Unpaid</option>
                             <option value="Paid">Paid</option>
