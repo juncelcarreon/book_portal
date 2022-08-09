@@ -11,8 +11,9 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts
+class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts, ShouldQueue
 {
     /**
     * @param array $row
@@ -21,6 +22,7 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
     */
     public function model(array $row)
     {
+
         if($row['author'] != null){
             $splitName = explode(", ", $row['author']);
             if(count($splitName) > 1){
