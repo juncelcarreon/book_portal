@@ -3,12 +3,14 @@
 namespace App\Imports;
 
 use App\Models\Book;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
 
-class BooksImport implements ToModel, WithHeadingRow
+class BooksImport implements ToModel, WithHeadingRow, WithChunkReading, ShouldQueue
 {
     /**
     * @param array $row
@@ -32,5 +34,10 @@ class BooksImport implements ToModel, WithHeadingRow
     public function headingRow(): int
     {
         return 1;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

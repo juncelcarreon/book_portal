@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePodFakesTable extends Migration
+class CreateRejectedAuthorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,9 @@ class CreatePodFakesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pod_fakes', function (Blueprint $table) {
+        Schema::create('rejected_authors', function (Blueprint $table) {
             $table->id();
             $table->string('author');
-            $table->string('book');
-            $table->string('year');
-            $table->string('month');
-            $table->string('flag');
-            $table->string('status')->nullable();
-            $table->string('format');
-            $table->string('quantity');
-            $table->string('price');
             $table->timestamps();
         });
     }
@@ -35,6 +27,6 @@ class CreatePodFakesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pod_fakes');
+        Schema::dropIfExists('rejected_authors');
     }
 }

@@ -2,10 +2,9 @@
 
 namespace App\Imports;
 
-use App\Models\PodFake;
+use App\Models\PodTransaction;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -19,17 +18,18 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
     */
     public function model(array $row)
     {
-        $podfake =  new PodFake([
-            'author' => $row['author'],
-            'book' => $row['title'],
-            'year' => $row['year'],
-            'month' => $row['mm'],
-            'flag' => $row['flag'],
-            'status' => $row['status'],
-            'format' => $row['format'],
-            'quantity' => $row['mtd_quantity'],
-            'price' => $row['list_price'],
-        ]);
+        return new PodTransaction([
+                'author_id' =>1,
+                'book_id' => 1,
+                'year' => $row['year'],
+                'month' => $row['mm'],
+                'flag' => $row['flag'],
+                'status' => $row['status'],
+                'format' => $row['format'],
+                'quantity' => $row['mtd_quantity'],
+                'price' => $row['list_price'],
+                'royalty' => 1
+            ]);
 
 
         // if($row['author'] != null){

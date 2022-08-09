@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Helpers\MonthHelper;
 use App\Helpers\SampleHelper;
+use App\Imports\PodFakesImport;
 use App\Imports\PodTransactionsImport;
+use App\Jobs\SavePodTransaction;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\PodFake;
 use Illuminate\Http\Request;
 use App\Models\PodTransaction;
 use Maatwebsite\Excel\Facades\Excel;
@@ -39,7 +42,16 @@ class PodTransactionController extends Controller
             'file' => 'required|file'
         ]);
 
-        Excel::import(new PodTransactionsImport, $request->file('file')->store('temp'));
+        ini_set('max_execution_time', 1200);
+
+        // Excel::import(new PodTransactionsImport, $request->file('file')->store('temp'));
+        Excel::import(new PodFakesImport, $request->file('file')->store('temp'));
+        SavePodTransaction::dispatch();
+
+        ini_set('max_execution_time', 60);
+
+
+
         return back()->with('success', 'Data successfully imported');
     }
 
