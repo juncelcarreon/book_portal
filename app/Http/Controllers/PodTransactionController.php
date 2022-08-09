@@ -40,7 +40,7 @@ class PodTransactionController extends Controller
         ]);
 
         Excel::import(new PodTransactionsImport, $request->file('file')->store('temp'));
-
+        dd(SampleHelper::getCount());
         return back()->with('success', 'Data successfully imported');
     }
 

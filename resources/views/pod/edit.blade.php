@@ -25,7 +25,7 @@
                     @method('PUT')
                     <div class="form-group my-1">
                         <label for="author">Author</label>
-                        <select name="author" id="author" class="form-select" value="{{old('author') ?? $pod->author}}">
+                        <select name="author" id="author" class="form-select">
                             <option value="" disabled selected>Select One</option>
                             @foreach ($authors as $author)
                             <option value="{{$author->id}}">{{$author->name}}</option>
@@ -105,14 +105,14 @@
                     </div>
                     <div class="form-group my-1">
                         <label for="quantity">Quantity</label>
-                        <input type="number" name="quantity" id="quantity" class="form-control" value="{{old('quantity')}}">
+                        <input type="number" name="quantity" id="quantity" class="form-control"  value="{{old('quantity') ?? $pod->quantity}}">
                         @error('quantity')
                         <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
                         <label for="price">Price</label>
-                        <input type="number" name="price" id="price" class="form-control" value="{{old('price')}}">
+                        <input type="number" name="price" id="price" class="form-control" value="{{old('price') ?? $pod->price}}">
                         @error('price')
                         <small class="text-danger">{{$message}}</small>
                         @enderror

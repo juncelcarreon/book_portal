@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Helpers\SampleHelper;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\PodTransaction;
@@ -12,6 +13,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\DB;
 
 class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts, ShouldQueue
 {
@@ -36,8 +38,8 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                 $royalty = number_format((float)($row['mtd_quantity'] * $row['list_price']) * 0.15, 2);
                 if($book){
                     return new PodTransaction([
-                        'author_id' => $author['id'],
-                        'book_id' => $book['id'],
+                        'author_id' => $author->id,
+                        'book_id' => $book->id,
                         'year' => $row['year'],
                         'month' => $row['mm'],
                         'flag' => $row['flag'],
@@ -52,7 +54,7 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                         'title' => $row['title']
                     ]);
                     return new PodTransaction([
-                        'author_id' => $author['id'],
+                        'author_id' => $author->id,
                         'book_id' => $newBook->id,
                         'year' => $row['year'],
                         'month' => $row['mm'],
