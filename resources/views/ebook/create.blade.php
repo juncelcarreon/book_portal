@@ -1,14 +1,13 @@
 @extends('layouts.authenticated')
 
 @section('content')
-
 <div class="container">
     <div class="container">
         <div class="row justify-content-center align-content-center mt-5">
             <div class="col-md-5">
-                <form action="{{route('pod.store')}}" method="post" class="card p-4 shadow">
+                <form action="" method="post" class="card p-4 shadow">
                     <div class="w-100 d-flex">
-                        <a href="{{ route('pod.index')}}" class="ms-auto text-decoration-none text-secondary">
+                        <a href="{{route('ebook.index')}}" class="ms-auto text-decoration-none text-secondary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                 class="bi bi-x" viewBox="0 0 16 16">
                                 <path
@@ -29,22 +28,22 @@
                         <select name="author" id="author" class="form-select" required>
                             <option value="" disabled selected>Select author</option>
                             @foreach ($authors as $author)
-                            <option value="{{$author->id}}">{{$author->name}}</option>
+                                <option value="{{$author->id}}">{{$author->name}}</option>
                             @endforeach
                         </select>
                         @error('author')
-                        <small class="text-danger">{{$message}}</small>
+                            <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
-                        <label for="book_title">Book</label>
-                        <select name="book_title" id="book_title" class="form-select" required>
+                        <label for="book">Book</label>
+                        <select name="book" id="book" class="form-select" required>
                             <option value="" disabled selected>Select book</option>
                             @foreach ($books as $book)
-                            <option class="text-wrap" value="{{$book->id}}">{{$book->title}}</option>
+                                <option value="{{$book->id}}">{{$book->title}}</option>
                             @endforeach
                         </select>
-                        @error('book_title')
+                        @error('book')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
@@ -55,7 +54,7 @@
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
-                    <div class="form-group my-2">
+                    <div class="form-group my-1">
                         <label for="month">Month</label>
                         <select name="month" id="month" class="form-select" required>
                             <option value="" disabled selected>Select month</option>
@@ -72,55 +71,23 @@
                         @enderror
                     </div>
                     <div class="form-group my-1">
-                        <label for="flag">Flag</label>
-                        <select name="flag" class="form-control" required>
-                            <option value="" disabled selected>Select flag</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                        @error('flag')
+                        <label for="quantity">Quantity</label>
+                        <input type="number" name="quantity" id="quantity" class="form-control" value="{{old('quantity')}}" required>
+                        @error('quantity')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
-                        <label for="status">Status</label>
-                        <select name="status" class="form-control" required>
-                            <option value="" disabled selected>Select status</option>
-                            <option value="">Unpaid</option>
-                            <option value="Paid">Paid</option>
-                        </select>
-                        @error('status')
-                        <small class="text-danger">{{$message}}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group my-1">
-                        <label for="format">Format</label>
-                        <select name="format" class="form-control" required>
-                            <option value="" disabled selected>Select format</option>
-                            <option value="Paperback">Paperback</option>
-                            <option value="Hardback">Hardback</option>
-                        </select>
-                        @error('format')
-                        <small class="text-danger">{{$message}}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group my-1">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" name="quantity" id="quantity" class="form-control" value="{{old('quantity')}}" required>
-                        @error('quantity')
-                        <small class="text-danger">{{$message}}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group my-1">
-                        <label for="price">Price</label>
+                        <label for="price">Retail Price</label>
                         <input type="number" name="price" id="price" class="form-control" value="{{old('price')}}" required>
                         @error('price')
-                        <small class="text-danger">{{$message}}</small>
+                            <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
                         <button type="submit" class="btn btn-primary">Add Transaction</button>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -140,5 +107,6 @@
   });
 })
 </script>
+
 
 @endsection

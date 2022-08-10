@@ -24,7 +24,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{{route('pod.index')}}">POD</a></li>
-                <li><a class="dropdown-item" href="{{route('user.edit-password')}}">Ebook</a></li>
+                <li><a class="dropdown-item" href="{{route('ebook.index')}}">Ebook</a></li>
               </ul>
           </li>
           <li class="nav-item dropdown">
