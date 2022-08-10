@@ -75,3 +75,5 @@ Route::middleware('auth')->group(function(){
         Route::get('/{pod}', 'delete')->name('pod.delete');
     });
 });
+
+

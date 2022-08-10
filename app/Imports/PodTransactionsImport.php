@@ -2,6 +2,8 @@
 
 namespace App\Imports;
 
+use App\Helpers\DatabaseDataValidatorHelper;
+use App\Helpers\NameHelper;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\PodTransaction;
@@ -11,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts, ShouldQueue
+class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts
 {
     /**
     * @param array $row
@@ -21,18 +23,13 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
     public function model(array $row)
     {
         if($row['author'] != null){
-            $splitName = explode(", ", $row['author']);
-            if(count($splitName) > 1){
-                $newName = $splitName[1]. " " .$splitName[0];
-            }else{
-                $newName = $row['author'];
-            }
-            $author = Author::where('name', 'LIKE',  $newName ."%")->first();
+            $splitName = (new NameHelper)->parse($row['author']);
+            $author = DatabaseDataValidatorHelper::findNameInAuthor($splitName);
             if($author){
                 $book = Book::where('title', $row['title'])->first();
                 $royalty = number_format((float)($row['mtd_quantity'] * $row['list_price']) * 0.15, 2);
                 if($book){
-                    return new PodTransaction([
+                    PodTransaction::create([
                         'author_id' => $author->id,
                         'book_id' => $book->id,
                         'year' => $row['year'],
@@ -46,9 +43,9 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                     ]);
                 }else{
                     $newBook = Book::create([
-                        'title' => $row['title']
+                        'title' => $row['book']
                     ]);
-                    return new PodTransaction([
+                    PodTransaction::create([
                         'author_id' => $author->id,
                         'book_id' => $newBook->id,
                         'year' => $row['year'],
