@@ -36,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($ebook_transactions as $ebook_transaction)
+                    @forelse ($ebook_transactions as $ebook_transaction)
                     <tr>
                         <td>{{$ebook_transaction->author->name}}</td>
                         <td>{{$ebook_transaction->book->title}}</td>
@@ -61,10 +61,16 @@
                             </div>
                         </td>
                     </tr>
-
-                    @endforeach
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center">No record found</td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
+        </div>
+        <div class="mt-2">
+            {{$ebook_transactions->links()}}
         </div>
     </div>
 </div>
