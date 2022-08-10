@@ -7,7 +7,6 @@ use Faker\Core\Number;
 class MonthHelper {
 
     private static $MONTHS = [
-        0 => '',
         1 => 'January',
         2 => 'February',
         3 => 'March',

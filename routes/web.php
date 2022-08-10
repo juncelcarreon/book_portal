@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\EbookController;
 use App\Http\Controllers\PodTransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -73,5 +74,13 @@ Route::middleware('auth')->group(function(){
         Route::get('/{pod}/edit', 'edit')->name('pod.edit');
         Route::put('/{pod}', 'update')->name('pod.update');
         Route::get('/{pod}', 'delete')->name('pod.delete');
+    });
+
+    Route::controller(EbookController::class)->prefix('ebook')->group(function(){
+        Route::get('/','index')->name('ebook.index');
+        Route::get('/create', 'create')->name('ebook.create');
+        Route::get('/import', 'importPage')->name('ebook.import-page');
+        Route::post('/create', 'store')->name('ebook.store');
+        Route::get('{ebook}/edit', 'edit')->name('ebook.edit');
     });
 });

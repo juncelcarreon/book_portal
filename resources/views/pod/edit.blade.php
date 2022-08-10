@@ -26,9 +26,13 @@
                     <div class="form-group my-1">
                         <label for="author">Author</label>
                         <select name="author" id="author" class="form-select">
-                            <option value="" disabled selected>Select One</option>
+                            <option value="" disabled selected>Select author</option>
                             @foreach ($authors as $author)
-                            <option value="{{$author->id}}">{{$author->name}}</option>
+                                @if($author == $pod->author)
+                                    <option value="{{$author->id}}" selected>{{$author->name}}</option>
+                                @else
+                                <option value="{{$author->id}}">{{$author->name}}</option>
+                                @endif
                             @endforeach
                         </select>
                         @error('author')
@@ -38,9 +42,14 @@
                     <div class="form-group my-1">
                         <label for="book_title">Book Title</label>
                         <select name="book_title" id="book_title" class="form-select">
-                            <option class="text-wrap" value="{{old('book_title') ?? $pod->book_title}}" disabled selected>Select One</option>
+                            <option value="" disabled selected>Select book</option>
                             @foreach ($books as $book)
-                            <option class="text-wrap" value="{{$book->id}}">{{$book->title}}</option>
+                                @if($book == $pod->book)
+                                <option class="text-wrap" value="{{$book->id}}" selected>{{$book->title}}</option>
+                                @else
+                                <option class="text-wrap" value="{{$book->id}}">{{$book->title}}</option>
+
+                                @endif
                             @endforeach
                         </select>
                         @error('book_title')
@@ -57,12 +66,12 @@
                     <div class="form-group my-2">
                         <label for="month">Month</label>
                         <select name="month" id="month" class="form-select">
-                            <option value="{{old('month')}}" disabled selected>Select One</option>
+                            <option value="" disabled selected>Select month</option>
                             @foreach ($months as $key => $value)
-                                @if (old('month') == $key)
-                                    <option value="{{$key}}" selected>{{$value == '' ? 'None' : $value }}</option>
+                                @if (old('month') == $key || $pod->month == $key)
+                                    <option value="{{$key}}" selected>{{$value}}</option>
                                 @else
-                                    <option value="{{$key}}">{{$value == '' ? 'None' : $value }}</option>
+                                    <option value="{{$key}}">{{$value}}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -73,9 +82,9 @@
                     <div class="form-group my-1">
                         <label for="flag">Flag</label>
                         <select name="flag" class="form-control" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            <option value="" disabled selected>Select flag</option>
+                            <option value="Yes" {{$pod->flag == 'Yes' ? 'selected' : ''}}>Yes</option>
+                            <option value="No" {{$pod->flag == 'No' ? 'selected' : ''}}>No</option>
                         </select>
                         @error('flag')
                             <small class="text-danger">{{$message}}</small>
@@ -84,9 +93,9 @@
                     <div class="form-group my-1">
                         <label for="status">Status</label>
                         <select name="status" class="form-control">
-                            <option value="" disabled selected>Select one</option>
-                            <option value="">Unpaid</option>
-                            <option value="Paid">Paid</option>
+                            <option value="" disabled selected>Select status</option>
+                            <option value="" {{$pod->status == '' ? 'selected' : ''}}>Unpaid</option>
+                            <option value="Paid" {{$pod->status == 'Paid' ? 'selected' : ''}}>Paid</option>
                         </select>
                         @error('status')
                         <small class="text-danger">{{$message}}</small>
@@ -95,9 +104,9 @@
                     <div class="form-group my-1">
                         <label for="format">Format</label>
                         <select name="format" class="form-control" required>
-                            <option value="" disabled selected>Select one</option>
-                            <option value="Paperback">Paperback</option>
-                            <option value="Hardback">Hardback</option>
+                            <option value="" disabled selected>Select format</option>
+                            <option value="Paperback" {{$pod->format == 'Paperback' ? 'selected' : ''}}>Paperback</option>
+                            <option value="Hardback" {{$pod->format == 'Hardback' ? 'selected' : ''}}>Hardback</option>
                         </select>
                         @error('format')
                         <small class="text-danger">{{$message}}</small>
@@ -125,5 +134,18 @@
         </div>
     </div>
 </div>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+   $(document).ready(function(){
+  $("#year").datepicker({
+     format: "yyyy",
+     viewMode: "years",
+     minViewMode: "years",
+     autoclose:true
+  });
+})
+</script>
 @endsection

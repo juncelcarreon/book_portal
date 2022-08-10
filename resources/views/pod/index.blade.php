@@ -26,7 +26,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>Author</th>
-                        <th>Book Title</th>
+                        <th>Book</th>
                         <th>Year</th>
                         <th>Month</th>
                         <th>Flag</th>
