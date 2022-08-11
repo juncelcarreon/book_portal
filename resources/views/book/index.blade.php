@@ -34,7 +34,7 @@
                     @forelse ($books as $book)
                     <tr>
                         <td>{{$book->product_id}}</td>
-                        <td>{{$book->title}}</td>
+                        <td>{{Str::title($book->title)}}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
                                 <a href="{{route('book.edit', ['book' => $book])}}" class="btn btn-outline-warning">

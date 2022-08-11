@@ -10,9 +10,9 @@
                         <option value="all" selected>Show all books</option>
                         @foreach ($books as $book)
                             @if (request()->get('book_id') == $book->id)
-                                <option value="{{$book->id}}" selected>{{$book->title}}</option>
+                                <option value="{{$book->id}}" selected>{{Str::title($book->title)}}</option>
                             @else
-                                <option value="{{$book->id}}">{{$book->title}}</option>
+                                <option value="{{$book->id}}">{{Str::title($book->title)}}</option>
                             @endif
                         @endforeach
                     </select>
@@ -59,7 +59,7 @@
                     @forelse ($ebook_transactions as $ebook_transaction)
                     <tr>
                         <td>{{$ebook_transaction->author->getFullName()}}</td>
-                        <td>{{$ebook_transaction->book->title}}</td>
+                        <td>{{Str::title($ebook_transaction->book->title)}}</td>
                         <td>{{$ebook_transaction->year}}</td>
                         <td>{{App\Helpers\MonthHelper::getStringMonth($ebook_transaction->month)}}</td>
                         <td>{{$ebook_transaction->quantity}}</td>
