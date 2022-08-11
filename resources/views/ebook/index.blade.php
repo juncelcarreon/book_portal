@@ -7,10 +7,13 @@
             <form action="{{route('ebook.search')}}" method="get" class="d-flex gap-2">
                 <div class="form-group my-2">
                     <select name="book_id" id="book_id" class="form-control select2 w-50">
-                        <option value="" disabled selected>Search book</option>
-                        <option value="all">Show all</option>
+                        <option value="all" selected>Show all books</option>
                         @foreach ($books as $book)
-                            <option value="{{$book->id}}">{{$book->title}}</option>
+                            @if (request()->get('book_id') == $book->id)
+                                <option value="{{$book->id}}" selected>{{$book->title}}</option>
+                            @else
+                                <option value="{{$book->id}}">{{$book->title}}</option>
+                            @endif
                         @endforeach
                     </select>
                     <button type="submit" class="btn btn-sm btn-primary">
