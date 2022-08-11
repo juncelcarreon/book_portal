@@ -37,7 +37,7 @@
                 <tbody>
                     @forelse ($authors as $author)
                     <tr>
-                        <td>{{$author->name}}</td>
+                        <td>{{$author->getFullName()}}</td>
                         <td>{{$author->uid}}</td>
                         <td>{{$author->email}}</td>
                         <td>{{$author->contact_number}}</td>

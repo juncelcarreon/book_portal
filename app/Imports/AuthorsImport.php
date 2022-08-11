@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Helpers\HumanNameFormatterHelper;
 use App\Models\Author;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -15,10 +16,15 @@ class AuthorsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $author = Author::where('name', $row['name'])->get();
+        $formattedName = (new HumanNameFormatterHelper)->parse($row['name']);
+        $author = Author::where('firstname', $formattedName->FIRSTNAME)->where('lastname', $formattedName->LASTNAME)->get();
         if(count($author) == 0){
             return new Author([
-                'name' => $row['name'],
+                'title' => $formattedName->TITLE,
+                'firstname' => $formattedName->FIRSTNAME,
+                'middle_initial' => $formattedName->MIDDLEINITIAL,
+                'lastname' => $formattedName->LASTNAME,
+                'suffix' => $formattedName->SUFFIX,
                 'uid' => $row['id'],
                 'email' => $row['email_address'],
                 'contact_number' => $row['home_phone'],

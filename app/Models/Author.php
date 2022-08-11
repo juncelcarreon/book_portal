@@ -10,7 +10,11 @@ class Author extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'title',
+        'firstname',
+        'middle_initial',
+        'lastname',
+        'suffix',
         'uid',
         'email',
         'contact_number',
@@ -25,5 +29,15 @@ class Author extends Model
     public function ebook_transcations()
     {
         return $this->hasMany(EbookTransaction::class);
+    }
+
+    public function getFullName()
+    {
+        return $this->firstname ." ". $this->lastname;
+    }
+
+    public function getFullName2()
+    {
+        return $this->lastname." ".$this->firstname;
     }
 }
