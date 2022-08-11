@@ -28,7 +28,7 @@
                         <select name="author" id="author" class="form-select select2" required>
                             <option value="" disabled selected>Select author</option>
                             @foreach ($authors as $author)
-                                <option value="{{$author->id}}">{{$author->name}}</option>
+                                <option value="{{$author->id}}">{{$author->getFullName()}}</option>
                             @endforeach
                         </select>
                         @error('author')
