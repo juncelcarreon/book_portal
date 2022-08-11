@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Helpers\DatabaseDataValidatorHelper;
+use App\Helpers\HumanNameFormatterHelper;
 use App\Helpers\NameHelper;
 use App\Models\Author;
 use App\Models\Book;
@@ -24,8 +25,13 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
     public function model(array $row)
     {
         if($row['author'] != null){
-            $splitName = (new NameHelper)->parse($row['author']);
-            $author = DatabaseDataValidatorHelper::findNameInAuthor($splitName);
+            $newName = $row['author'];
+            if(str_contains($newName,",")){
+                $newName = explode(", ", $row['author']);
+                $newName = $newName[1] ." ". $newName[0];
+            }
+            $formattedName = (new HumanNameFormatterHelper)->parse($newName);
+            $author = Author::where('firstname', $formattedName->FIRSTNAME)->where('lastname', $formattedName->LASTNAME)->first();
             if($author){
                 $book = Book::where('title', $row['title'])->first();
                 $royalty = number_format((float)($row['mtd_quantity'] * $row['list_price']) * 0.15, 2);
