@@ -5,8 +5,8 @@
         <div class="container">
             <div class="row justify-content-center align-content-center mt-5">
                 <div class="col-md-5">
-                    <form action="" method="post" class="card p-4 shadow">
-                        <a href="" class="ms-auto text-decoration-none text-secondary">
+                    <form action="{{ route('ebook.update',['ebook' => $ebook]) }}" method="post" class="card p-4 shadow">
+                        <a href="{{route('ebook.index')}}" class="ms-auto text-decoration-none text-secondary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-x" viewBox="0 0 16 16">
                             <path
@@ -60,15 +60,16 @@
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
-                        <div class="form-group my-1">
+                        <div class="form-group my-2">
                             <label for="month">Month</label>
                             <select name="month" id="month" class="form-select">
-                                <option value="" disabled selected>Select Month</option>
+                                <option value="" disabled selected>Select month</option>
                                 @foreach ($months as $key => $value)
                                     @if (old('month') == $key || $ebook->month == $key)
                                         <option value="{{$key}}" selected>{{$value}}</option>
-                                    @endif
+                                    @else
                                         <option value="{{$key}}">{{$value}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             @error('month')
