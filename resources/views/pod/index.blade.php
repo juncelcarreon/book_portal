@@ -93,7 +93,7 @@
             </table>
         </div>
         <div class="mt-2">
-            {{$pod_transactions->links()}}
+            {{$pod_transactions->withQueryString()->links()}}
         </div>
     </div>
 </div>
