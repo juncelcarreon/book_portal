@@ -16,9 +16,9 @@ class CreatePodTransactionsTable extends Migration
         Schema::create('pod_transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('authors');
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->unsignedBigInteger('book_id');
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->year('year');
             $table->string('month');
             $table->string('flag');
