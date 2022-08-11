@@ -4,7 +4,23 @@
 <div class="container ">
     <div class="p-3 my-3 w-100 ">
         <div class="d-flex">
-            <div class="ms-auto my-2">
+            <form action="{{route('ebook.search')}}" method="get" class="d-flex gap-2">
+                <div class="form-group my-2">
+                    <select name="book_id" id="book_id" class="form-control select2 w-50">
+                        <option value="" disabled selected>Search book</option>
+                        <option value="all">Show all</option>
+                        @foreach ($books as $book)
+                            <option value="{{$book->id}}">{{$book->title}}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+            <div class="ms-auto">
                 <a href="{{route('ebook.import-page')}}" class="btn btn-outline-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
@@ -22,6 +38,7 @@
             </div>
         </div>
         <div class="bg-light p-2 shadow rounded">
+            <h5 class="text-center my-3">eBook Transactions</h5>
             <table class="table table-bordered table-hover mt-2">
                 <thead>
                     <tr class="text-center">
@@ -74,4 +91,10 @@
         </div>
     </div>
 </div>
+    <script>
+        // In your Javascript (external .js resource or <script> tag)
+            $(document).ready(function() {
+                $('.select2').select2();
+            });
+    </script>
 @endsection

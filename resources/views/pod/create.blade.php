@@ -26,7 +26,7 @@
                     @csrf
                     <div class="form-group my-1">
                         <label for="author">Author</label>
-                        <select name="author" id="author" class="form-select" required>
+                        <select name="author" id="author" class="form-select select2" required>
                             <option value="" disabled selected>Select author</option>
                             @foreach ($authors as $author)
                             <option value="{{$author->id}}">{{$author->name}}</option>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group my-1">
                         <label for="book_title">Book</label>
-                        <select name="book_title" id="book_title" class="form-select" required>
+                        <select name="book_title" id="book_title" class="form-select select2" required>
                             <option value="" disabled selected>Select book</option>
                             @foreach ($books as $book)
                             <option class="text-wrap" value="{{$book->id}}">{{$book->title}}</option>
@@ -130,6 +130,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
    $(document).ready(function(){
   $("#year").datepicker({
@@ -138,6 +139,7 @@
      minViewMode: "years",
      autoclose:true
   });
+  $('.select2').select2();
 })
 </script>
 

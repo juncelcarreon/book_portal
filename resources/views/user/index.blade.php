@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center align-content-center mt-5">
         <div class="card col-md-5 p-4 shadow">
-            <h5 class="text-center">User Profile</h6>
+            <h5 class="text-center">User Profile</h5>
             <form action="{{route('user.update-profile')}}" method="post">
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

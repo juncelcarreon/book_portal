@@ -8,16 +8,29 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\EbookTransaction;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class EbookController extends Controller
 {
     public function index()
     {
+        $books = Book::all();
         return view('ebook.index', [
             'ebook_transactions' => EbookTransaction::orderBy('created_at', 'DESC')->paginate(10)
-        ]);
+        ], compact('books'));
     }
 
+    public function search(Request $request)
+    {
+        $books = Book::all();
+        $ebook = EbookTransaction::where('book_id', $request->book_id)->paginate(10);
+        if($request->book_id == 'all'){
+            $ebook = EbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        }
+        return view('ebook.index', [
+            'ebook_transactions' => $ebook, 'books' => $books
+        ]);
+    }
     public function create()
     {
         $months = MonthHelper::getAlternativeMonth();
