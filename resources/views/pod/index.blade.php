@@ -58,7 +58,7 @@
                 <tbody>
                     @forelse ($pod_transactions as $pod_transaction)
                         <tr>
-                            <td>{{$pod_transaction->author->name}}</td>
+                            <td>{{$pod_transaction->author->getFullName()}}</td>
                             <td>{{$pod_transaction->book->title}}</td>
                             <td>{{$pod_transaction->year}}</td>
                             <td>{{App\Helpers\MonthHelper::getStringMonth($pod_transaction->month)}}</td>

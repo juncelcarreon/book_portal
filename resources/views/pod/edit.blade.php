@@ -29,9 +29,9 @@
                             <option value="" disabled selected>Select author</option>
                             @foreach ($authors as $author)
                                 @if($author == $pod->author)
-                                    <option value="{{$author->id}}" selected>{{$author->name}}</option>
+                                    <option value="{{$author->id}}" selected>{{$author->getFullName()}}</option>
                                 @else
-                                <option value="{{$author->id}}">{{$author->name}}</option>
+                                <option value="{{$author->id}}">{{$author->getFullName()}}</option>
                                 @endif
                             @endforeach
                         </select>

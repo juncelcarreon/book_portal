@@ -55,7 +55,7 @@
                 <tbody>
                     @forelse ($ebook_transactions as $ebook_transaction)
                     <tr>
-                        <td>{{$ebook_transaction->author->name}}</td>
+                        <td>{{$ebook_transaction->author->getFullName()}}</td>
                         <td>{{$ebook_transaction->book->title}}</td>
                         <td>{{$ebook_transaction->year}}</td>
                         <td>{{App\Helpers\MonthHelper::getStringMonth($ebook_transaction->month)}}</td>
