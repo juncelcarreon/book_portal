@@ -10,9 +10,9 @@
                         <option value="all" selected>Show all books</option>
                         @foreach ($books as $book)
                             @if (request()->get('book_id') == $book->id)
-                                <option value="{{$book->id}}" selected>{{$book->title}}</option>
+                                <option value="{{$book->id}}" selected>{{Str::title($book->title)}}</option>
                             @else
-                                <option value="{{$book->id}}">{{$book->title}}</option>
+                                <option value="{{$book->id}}">{{Str::title($book->title)}}</option>
                             @endif
                         @endforeach
                     </select>
@@ -62,7 +62,7 @@
                     @forelse ($pod_transactions as $pod_transaction)
                         <tr>
                             <td>{{$pod_transaction->author->getFullName()}}</td>
-                            <td>{{$pod_transaction->book->title}}</td>
+                            <td>{{Str::title($pod_transaction->book->title)}}</td>
                             <td>{{$pod_transaction->year}}</td>
                             <td>{{App\Helpers\MonthHelper::getStringMonth($pod_transaction->month)}}</td>
                             <td>{{$pod_transaction->flag}}</td>
