@@ -62,4 +62,35 @@ class EbookController extends Controller
         $books = Book::all();
         return view('ebook.edit', compact('ebook', 'months', 'authors', 'books'));
     }
+
+    public function update(Request $request, EbookTransaction $ebook)
+    {
+        $request->validate([
+            'author' => 'required',
+            'book' => 'required',
+            'year' => 'required',
+            'month' => 'required',
+            'quantity' => 'required',
+            'price' => 'required'
+        ]);
+
+        $ebook->update([
+            'author_id' => $request->author,
+            'bood_id' => $request->book,
+            'year' => $request->year,
+            'month' => $request->month,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'royalty' => number_format((float) ($request->quantity * $request->price))
+        ]);
+
+        return redirect(route('ebook.edit', ['ebook' => $ebook]))->with('success', 'Transaction successfully updated');
+    }
+
+    public function delete(EbookTransaction $ebook)
+    {
+        $ebook->delete();
+
+        return redirect()->route('ebook.index')->with('success', 'Transaction successfully deleted');
+    }
 }

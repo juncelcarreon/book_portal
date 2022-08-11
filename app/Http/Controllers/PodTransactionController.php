@@ -120,7 +120,7 @@ class PodTransactionController extends Controller
             'royalty' => number_format((float)($request->quantity * $request->price) * 0.15, 2)
         ]);
 
-        return redirect(route('pod.edit'))->with('success', 'Transaction successfully updated');
+        return redirect(route('pod.edit', ['pod' => $pod]))->with('success', 'Transaction successfully updated');
 
     }
 }
