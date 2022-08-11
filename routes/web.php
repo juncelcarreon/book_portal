@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(PodTransactionController::class)->prefix('pod')->group(function(){
         Route::get('/','index')->name('pod.index');
+        Route::get('/search', 'search')->name('pod.search');
         Route::get('/import','importPage')->name('pod.import-page');
         Route::post('/import', 'import')->name('pod.import-bulk');
         Route::get('/create', 'create')->name('pod.create');
@@ -78,6 +79,7 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(EbookController::class)->prefix('ebook')->group(function(){
         Route::get('/','index')->name('ebook.index');
+        Route::get('/search', 'search')->name('ebook.search');
         Route::get('/create', 'create')->name('ebook.create');
         Route::get('/import', 'importPage')->name('ebook.import-page');
         Route::post('/create', 'store')->name('ebook.store');

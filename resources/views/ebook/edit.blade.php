@@ -24,7 +24,7 @@
                         @method('PUT')
                         <div class="form-group my-1">
                             <label for="author">Author</label>
-                            <select name="author" id="author" class="form-select">
+                            <select name="author" id="author" class="form-select select2">
                                 <option value="" disabled selected>Select author</option>
                                 @foreach ($authors as $author)
                                     @if ($author == $ebook->author)
@@ -40,13 +40,14 @@
                         </div>
                         <div class="form-group my-1">
                             <label for="book">Book</label>
-                            <select name="book" id="book" class="form-select">
+                            <select name="book" id="book" class="form-select select2">
                                 <option value="" disabled selected>Select book</option>
                                 @foreach ($books as $book)
                                     @if ($book == $ebook->book)
                                         <option value="{{$book->id}}" selected>{{$book->title}}</option>
-                                    @endif
+                                    @else
                                         <option value="{{$book->id}}">{{$book->title}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                             @error('book')
@@ -102,14 +103,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-    $(document).ready(function(){
-    $("#year").datepicker({
-        format: "yyyy",
-        viewMode: "years",
-        minViewMode: "years",
-        autoclose:true
-    });
+       $(document).ready(function(){
+      $("#year").datepicker({
+         format: "yyyy",
+         viewMode: "years",
+         minViewMode: "years",
+         autoclose:true
+      });
+      $('.select2').select2();
     })
     </script>
 @endsection

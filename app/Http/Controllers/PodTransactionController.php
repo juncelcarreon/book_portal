@@ -15,11 +15,23 @@ class PodTransactionController extends Controller
 {
     public function index()
     {
+        $books = Book::all();
         return view('pod.index', [
             'pod_transactions' => PodTransaction::orderBy('created_at', 'DESC')->paginate(10)
-        ]);
+        ], compact('books'));
     }
 
+    public function search(Request $request)
+    {
+        $books = Book::all();
+        $pod = PodTransaction::where('book_id', $request->book_id)->paginate(10);
+        if($request->book_id == 'all'){
+            $pod = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+        }
+        return view('pod.index', [
+            'pod_transactions' => $pod, 'books' => $books
+        ]);
+    }
     public function create()
     {
         $months = MonthHelper::getAlternativeMonth();
