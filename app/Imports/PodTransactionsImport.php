@@ -7,6 +7,7 @@ use App\Helpers\NameHelper;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\PodTransaction;
+use App\Models\RejectedAuthor;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -58,6 +59,10 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                         'royalty' => $royalty
                     ]);
                 }
+            }else{
+                RejectedAuthor::create([
+                    'author' => $row['author']
+                ]);
             }
         }
     }

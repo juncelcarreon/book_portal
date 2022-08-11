@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-light shadow">
     <div class="container">
       <a class="navbar-brand" href="/">
-        <img src="{{asset('images/elink-logo-site.png')}}" height="50" width="50" alt="" srcset="">
+        <img src="{{asset('images/readers_magnet.png')}}" height="50" width="50" alt="" srcset="">
         <span class="mt-2">Book Portal</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

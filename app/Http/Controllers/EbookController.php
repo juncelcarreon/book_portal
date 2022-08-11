@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HumanNameFormatterHelper;
 use App\Helpers\MonthHelper;
 use App\Models\Author;
 use App\Models\Book;
