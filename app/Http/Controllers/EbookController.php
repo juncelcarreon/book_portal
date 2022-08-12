@@ -55,7 +55,8 @@ class EbookController extends Controller
             'year' => 'required',
             'month' => 'required',
             'quantity' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'proceeds' => 'required'
         ]);
 
         $ebook = EbookTransaction::create([
@@ -65,7 +66,8 @@ class EbookController extends Controller
             'month' => $request->month,
             'quantity' => $request->quantity,
             'price' => $request->price,
-            'royalty' => number_format((float)($request->quantity * $request->price))
+            'proceeds' => $request->proceeds,
+            'royalty' => $request->proceeds / 2
         ]);
 
         return redirect(route('ebook.create'))->with('success', 'Transaction successfully saved');
@@ -87,7 +89,8 @@ class EbookController extends Controller
             'year' => 'required',
             'month' => 'required',
             'quantity' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'proceeds' => 'required'
         ]);
 
         $ebook->update([
@@ -97,7 +100,8 @@ class EbookController extends Controller
             'month' => $request->month,
             'quantity' => $request->quantity,
             'price' => $request->price,
-            'royalty' => number_format((float) ($request->quantity * $request->price))
+            'proceeds' => $request->proceeds,
+            'royalty' => $request->proceeds / 2
         ]);
 
         return redirect(route('ebook.edit', ['ebook' => $ebook]))->with('success', 'Transaction successfully updated');

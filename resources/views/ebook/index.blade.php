@@ -51,6 +51,7 @@
                         <th>Month</th>
                         <th>Quantity</th>
                         <th>Retail Price</th>
+                        <th>Proceeds of Sale Due Publisher</th>
                         <th>Author Royalty</th>
                         <th>Action</th>
                     </tr>
@@ -64,6 +65,7 @@
                         <td>{{App\Helpers\MonthHelper::getStringMonth($ebook_transaction->month)}}</td>
                         <td>{{$ebook_transaction->quantity}}</td>
                         <td>{{$ebook_transaction->price}}</td>
+                        <td>{{$ebook_transaction->proceeds}}</td>
                         <td>{{$ebook_transaction->royalty}}</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
@@ -83,7 +85,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="text-center">No record found</td>
+                        <td colspan="9" class="text-center">No record found</td>
                     </tr>
                 @endforelse
                 </tbody>

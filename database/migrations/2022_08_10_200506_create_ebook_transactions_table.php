@@ -23,6 +23,7 @@ class CreateEbookTransactionsTable extends Migration
             $table->string('month');
             $table->integer('quantity');
             $table->double('price');
+            $table->double('proceeds');
             $table->double('royalty');
             $table->timestamps();
         });

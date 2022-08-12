@@ -50,7 +50,7 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                     ]);
                 }else{
                     $newBook = Book::create([
-                        'title' => $row['book']
+                        'title' => $row['book'] ?? $row['title']
                     ]);
                     PodTransaction::create([
                         'author_id' => $author->id,
