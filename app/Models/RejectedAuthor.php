@@ -10,6 +10,7 @@ class RejectedAuthor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'author'
+        'author',
+        'type'
     ];
 }

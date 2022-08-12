@@ -11,7 +11,7 @@ class NameHelper{
        return $segments;
     }
 
-    private function normalize($name)
+    public static function normalize($name)
     {
         $whitespace = "\r\n\t";
         $name = trim($name);

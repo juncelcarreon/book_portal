@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Helpers\HumanNameFormatterHelper;
 use App\Helpers\MonthHelper;
+use App\Imports\EbookTransactionsImport;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\EbookTransaction;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class EbookController extends Controller
@@ -105,5 +107,18 @@ class EbookController extends Controller
         $ebook->delete();
 
         return redirect()->route('ebook.index')->with('success', 'Transaction successfully deleted');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file'
+        ]);
+
+        ini_set('max_execution_time', 1200);
+
+        Excel::import(new EbookTransactionsImport, $request->file('file')->store('temp'));
+        ini_set('max_execution_time', 60);
+        return back()->with('success', 'Data successfully imported');
     }
 }

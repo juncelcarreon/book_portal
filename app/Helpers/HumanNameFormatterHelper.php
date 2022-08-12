@@ -42,22 +42,26 @@ class HumanNameFormatterHelper
         'Sen',
         'Sra',
         'Srta',
+        'Md'
     ];
 
     private static $SUFFIXES = [
         'Jr',
         'Sr',
         'I',
-        'II',
-        'III',
-        'IV',
+        'Ii',
+        'Iii',
+        'Iv',
         'Esq',
         'V',
         'Ret',
-        'USA',
-        'USAF',
-        'USAMS',
-        'USN'
+        'Usa',
+        'Usaf',
+        'Usams',
+        'Usn',
+        'Md',
+        'Phd',
+        'Rn',
     ];
 
     private static $MIDDLEINITIALS = [
@@ -90,6 +94,9 @@ class HumanNameFormatterHelper
 
     private function setTitle($title)
     {
+        $whitespace = "\r\n\t";
+        $title = trim($title);
+        $title = preg_replace('/[' . preg_quote($whitespace) .']+/', ' ', $title);
         // Remove dot
         $tempTitle = str_replace(".", "", $title);
         // Check the title exist in list of TITLES
@@ -106,6 +113,10 @@ class HumanNameFormatterHelper
 
     private function setFirstname($firstname)
     {
+        $whitespace = "\r\n\t";
+        $firstname = trim($firstname);
+        $firstname = preg_replace('/[' . preg_quote($whitespace) .']+/', ' ', $firstname);
+
         // Check the variable FIRSTNAME has value
         if(empty($this->FIRSTNAME))
         {
@@ -124,6 +135,9 @@ class HumanNameFormatterHelper
 
     private function setMiddleInitial($middleInitial)
     {
+        $whitespace = "\r\n\t";
+        $middleInitial = trim($middleInitial);
+        $middleInitial = preg_replace('/[' . preg_quote($whitespace) .']+/', ' ', $middleInitial);
         if(in_array(Str::title($middleInitial), self::$MIDDLEINITIALS)){
             $this->MIDDLEINITIAL = Str::title($middleInitial);
             return;
@@ -141,6 +155,10 @@ class HumanNameFormatterHelper
 
     private function setLastname($lastname)
     {
+        $whitespace = "\r\n\t";
+        $lastname = trim($lastname);
+        $lastname = preg_replace('/[' . preg_quote($whitespace) .']+/', ' ', $lastname);
+
         if($this->LASTNAME === Str::title($lastname))
         {
             return;
@@ -152,6 +170,11 @@ class HumanNameFormatterHelper
 
     private function setSuffix($suffix)
     {
+        $whitespace = "\r\n\t";
+        $suffix = trim($suffix);
+        $suffix = preg_replace('/[' . preg_quote($whitespace) .']+/', ' ', $suffix);
+
+        $suffix = trim($suffix);
         $tempSuffix = str_replace(".", "", $suffix);
 
         if(in_array(Str::title($tempSuffix), self::$SUFFIXES)){
@@ -185,7 +208,7 @@ class HumanNameFormatterHelper
     private function lengthIsFour($name)
     {
         $this->setTitle($name[0]);
-        $this->setFirstname($name[count($name)-3]);
+        $this->setSuffix($name[count($name) - 3]);
 
         if(empty($this->SUFFIX))
         {
@@ -231,8 +254,10 @@ class HumanNameFormatterHelper
 
     public function parse(string $name)
     {
+
         // Separate the string name by spaces
         $name = explode(" ", $name);
+
         if(count($name) == 2){
             $this->lengthIsTwo($name);
         }elseif(count($name) == 3){
@@ -254,6 +279,11 @@ class HumanNameFormatterHelper
     public function getFullName2()
     {
         return $this->LASTNAME .", ".$this->FIRSTNAME;
+    }
+
+    public function getCompleteName()
+    {
+        return $this->TITLE ." ".$this->FIRSTNAME." ".$this->MIDDLEINITIAL." ".$this->LASTNAME." ".$this->SUFFIX;
     }
 
 }

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center align-content-center mt-5">
             <div class="col-md-5">
-                <form action="" method="post" class="card p-4 shadow" enctype="multipart/form-data">
+                <form action="{{route('ebook.import-bulk')}}" method="post" class="card p-4 shadow" enctype="multipart/form-data">
                     <a href="{{route('ebook.index')}}" class="ms-auto text-decoration-none text-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-x" viewBox="0 0 16 16">

@@ -16,6 +16,7 @@ class CreateRejectedAuthorsTable extends Migration
         Schema::create('rejected_authors', function (Blueprint $table) {
             $table->id();
             $table->string('author');
+            $table->string('type');
             $table->timestamps();
         });
     }

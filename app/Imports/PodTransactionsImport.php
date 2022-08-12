@@ -31,7 +31,7 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                 $newName = $newName[1] ." ". $newName[0];
             }
             $formattedName = (new HumanNameFormatterHelper)->parse($newName);
-            $author = Author::where('firstname', $formattedName->FIRSTNAME)->where('lastname', $formattedName->LASTNAME)->first();
+            $author = Author::where('firstname', 'LIKE', NameHelper::normalize($formattedName->FIRSTNAME) ."%")->where('lastname','LIKE', NameHelper::normalize($formattedName->LASTNAME) ."%")->first();
             if($author){
                 $book = Book::where('title', $row['title'])->first();
                 $royalty = number_format((float)($row['mtd_quantity'] * $row['list_price']) * 0.15, 2);
@@ -67,7 +67,8 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                 }
             }else{
                 RejectedAuthor::create([
-                    'author' => $row['author']
+                    'author' => $row['author'],
+                    'type' => 'pod'
                 ]);
             }
         }

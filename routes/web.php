@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/search', 'search')->name('ebook.search');
         Route::get('/create', 'create')->name('ebook.create');
         Route::get('/import', 'importPage')->name('ebook.import-page');
+        Route::post('/import', 'import')->name('ebook.import-bulk');
         Route::post('/create', 'store')->name('ebook.store');
         Route::get('/{ebook}/edit', 'edit')->name('ebook.edit');
         Route::put('/{ebook}', 'update')->name('ebook.update');
