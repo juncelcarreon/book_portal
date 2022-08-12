@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\EbookController;
+use App\Http\Controllers\GeneratePdfController;
 use App\Http\Controllers\PodTransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -89,6 +90,11 @@ Route::middleware('auth')->group(function(){
         Route::get('/{ebook}/edit', 'edit')->name('ebook.edit');
         Route::put('/{ebook}', 'update')->name('ebook.update');
         Route::get('/{ebook}', 'delete')->name('ebook.delete');
+    });
+
+
+    Route::controller(GeneratePdfController::class)->prefix('generate')->group(function(){
+        Route::get('/', 'generate')->name('generate.pdf');
     });
 });
 
