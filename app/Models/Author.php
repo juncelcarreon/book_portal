@@ -33,7 +33,7 @@ class Author extends Model
 
     public function getFullName()
     {
-        return $this->firstname ." ". $this->lastname;
+        return $this->title . " " . $this->firstname ." ". $this->middle_initial ." ". $this->lastname ." ". $this->suffix;
     }
 
     public function getFullName2()

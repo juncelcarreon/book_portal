@@ -14,7 +14,20 @@ class AuthorController extends Controller
     public function index()
     {
         return view('author.index', [
-            'authors' => Author::paginate(10)
+            'authors' => Author::paginate(10),
+            'authorSearch' => Author::all()
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $author = Author::where('id', $request->author)->paginate(10);
+        if($request->author == 'all'){
+            return redirect(route('author.index'));
+        }
+        return view('author.index', [
+            'authorSearch' => Author::all(),
+            'authors' => $author
         ]);
     }
 
@@ -48,10 +61,8 @@ class AuthorController extends Controller
         */
 
         $request->validate([
-            'name' => 'required|unique:authors',
-            'email' => 'required',
-            'contact_number' => 'required',
-            'address' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
         ]);
 
         /**
@@ -86,10 +97,8 @@ class AuthorController extends Controller
         */
 
         $request->validate([
-            'name' => 'required|'. Rule::unique('authors')->ignore($author->id),
-            'email' => 'required',
-            'contact_number' => 'required',
-            'address' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
         ]);
 
         /**

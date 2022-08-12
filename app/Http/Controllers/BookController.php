@@ -13,7 +13,20 @@ class BookController extends Controller
     public function index()
     {
         return view('book.index',[
-            'books' => Book::paginate(10)
+            'books' => Book::paginate(10),
+            'bookSearch' => Book::all()
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $book = Book::where('title', $request->title)->paginate(10);
+        if($request->title == 'all'){
+            return redirect(route('book.index'));
+        }
+        return view('book.index', [
+            'bookSearch' => Book::all(),
+            'books' => $book
         ]);
     }
 
