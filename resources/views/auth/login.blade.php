@@ -5,10 +5,10 @@
         <div class="row justify-content-center align-content-center vh-100">
             <div class="col-md-4 ">
                 <div class="d-flex justify-content-center gap-2">
-                    <img src="{{asset('images/elink-logo-site.png')}}" height="100" width="100" alt="" srcset="">
+                    <img src="{{asset('images/readers_magnet.png')}}" height="100" width="100" alt="" srcset="">
                     {{-- <img src="{{asset('images/readers_magnet.png')}}" height="90" width="90" alt="" srcset=""> --}}
                 </div>
-                <h6 class="text-center">ELink Systems and Concept Corp</h6>
+                <h5 class="text-center my-2">Royalty Calculation</h5>
                 <form action="" method="post" class="card p-4 shadow">
                     @csrf
                     <div class="form-group my-2">
