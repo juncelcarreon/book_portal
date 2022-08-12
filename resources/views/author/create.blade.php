@@ -23,28 +23,56 @@
                     @endif
                     @csrf
                     <div class="form-group my-1">
-                        <label for="name">Author Name</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="John Doe" value="{{old('name')}}">
-                        @error('name')
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" class="form-control" placeholder="Dr." value="{{old('title')}}">
+                        @error('title')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
-                        <label for="email">Author Email</label>
+                        <label for="firstname">First Name</label>
+                        <input type="text" name="firstname" id="firstname" class="form-control" placeholder="John" value="{{old('firstname')}}">
+                        @error('firstname')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="middle_initial">Middle Initial</label>
+                        <input type="text" name="middle_initial" id="middle_initial" class="form-control" placeholder="D." value="{{old('middle_initial')}}">
+                        @error('middle_initial')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Doe" value="{{old('lastname')}}">
+                        @error('lastname')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="suffix">Suffix</label>
+                        <input type="text" name="suffix" id="suffix" class="form-control" placeholder="Sr." value="{{old('suffix')}}">
+                        @error('suffix')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="email">Email</label>
                         <input type="text" name="email" id="email" class="form-control" placeholder="xxx@elink.com.ph" value="{{old('email')}}">
                         @error('email')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
-                        <label for="contact_number">Author Contact Number</label>
+                        <label for="contact_number">Contact Number</label>
                         <input type="text" name="contact_number" id="contact_number" class="form-control" placeholder="09xxxxxxxx" value="{{old('contact_number')}}">
                         @error('contact_number')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
                     <div class="form-group my-1">
-                        <label for="address">Author Address</label>
+                        <label for="address">Address</label>
                         <textarea name="address" id="address" class="form-control" cols="10" rows="3">{{old('address')}}</textarea>
                         @error('address')
                             <small class="text-danger">{{$message}}</small>

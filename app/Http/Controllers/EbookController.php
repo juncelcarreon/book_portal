@@ -31,6 +31,7 @@ class EbookController extends Controller
             'ebook_transactions' => $ebook, 'books' => $books
         ]);
     }
+
     public function create()
     {
         $months = MonthHelper::getAlternativeMonth();

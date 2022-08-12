@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(AuthorController::class)->group(function(){
         Route::get('/authors', 'index')->name('author.index');
+        Route::get('/authors/search', 'search')->name('author.search');
         Route::get('/authors/import', 'importPage')->name('author.import-page');
         Route::post('/authors/import', 'import')->name('author.import-bulk');
         Route::get('/authors/create', 'create')->name('author.create');
@@ -56,6 +57,7 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(BookController::class)->group(function(){
         Route::get('/books','index')->name('book.index');
+        Route::get('/books/search', 'search')->name('book.search');
         Route::get('/books/import','importPage')->name('book.import-page');
         Route::post('/books/import', 'import')->name('book.import-bulk');
         Route::get('/books/create', 'create')->name('book.create');
