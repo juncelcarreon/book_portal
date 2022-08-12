@@ -28,7 +28,6 @@ class EbookTransactionsImport implements ToModel,WithHeadingRow
         if($author){
             $book = Book::where('title', $row['producttitle'])->first();
             if($book){
-                $royalty = $row['proceedsofsaleduepublisher'] / 2;
                 $date = Carbon::parse($row['transactiondatetime']);
                 return new EbookTransaction([
                     'author_id' => $author->id,
@@ -37,7 +36,8 @@ class EbookTransactionsImport implements ToModel,WithHeadingRow
                     'month' => $date->month,
                     'quantity' => $row['grosssoldquantity'],
                     'price' => $row['unitprice'],
-                    'royalty' => $royalty,
+                    'proceeds' => $row['proceedsofsaleduepublisher'],
+                    'royalty' => $row['proceedsofsaleduepublisher'] / 2
                 ]);
             }
         }else{

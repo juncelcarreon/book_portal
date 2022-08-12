@@ -85,6 +85,13 @@
                         @enderror
                     </div>
                     <div class="form-group my-1">
+                        <label for="proceeds">Proceeds of Sale Due Publisher</label>
+                        <input type="number" name="proceeds" id="proceeds" class="form-control" value="{{old('proceeds')}}" required>
+                        @error('proceeds')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
                         <button type="submit" class="btn btn-primary">Add Transaction</button>
                     </div>
 

@@ -13,12 +13,12 @@
                         </svg>
                     </a>
                     <h5 class="text-center">Import File</h5>
-                    @if (Session::has('success'))
-                        <div class="alert alert-success alert-dismissable fade show" role="alert">
-                            <span>{{Session::get('success')}}</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
+                    @if($message = Session::get('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span>{{$message}}</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                     @csrf
                     <div class="form-group my-2">
                         <label for="email">Excel File</label>

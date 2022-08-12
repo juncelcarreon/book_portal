@@ -16,6 +16,7 @@ class EbookTransaction extends Model
         'month',
         'quantity',
         'price',
+        'proceeds',
         'royalty'
     ];
 
