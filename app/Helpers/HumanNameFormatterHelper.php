@@ -25,7 +25,6 @@ class HumanNameFormatterHelper
         'Esq',
         'St',
         'Dr',
-        'PhD',
         'Sis',
         'Br',
         'Chan',
@@ -42,7 +41,8 @@ class HumanNameFormatterHelper
         'Sen',
         'Sra',
         'Srta',
-        'Md'
+        'Md',
+        'Bp',
     ];
 
     private static $SUFFIXES = [
@@ -65,30 +65,9 @@ class HumanNameFormatterHelper
     ];
 
     private static $MIDDLEINITIALS = [
-        'A.',
-        'B.',
-        'C.',
-        'D.',
-        'E.',
-        'F.',
-        'G.',
-        'H.',
-        'I.',
-        'J.',
-        'K.',
-        'L.',
-        'M.',
-        'N.',
-        'O.',
-        'P.',
-        'Q.',
-        'R.',
-        'S.',
-        'T.',
-        'U.',
-        'V.',
-        'X.',
-        'Y.',
+        'A.','B.','C.','D.','E.','F.','G.','H.',
+        'I.','J.','K.','L.','M.','N.','O.','P.',
+        'Q.','R.','S.','T.','U.','V.','X.','Y.',
         'Z.'
     ];
 
