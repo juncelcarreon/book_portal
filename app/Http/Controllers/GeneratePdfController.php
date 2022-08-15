@@ -52,7 +52,7 @@ class GeneratePdfController extends Controller
             foreach($years as $year)
             {
                 foreach($months as $month){
-                    $podFirst = PodTransaction::where('author_id', $request->author)->where('book_id', $request->book)->where('year', $year)->where('month', $month)->first();
+                    $podFirst = $podTransactions->where('author_id', $request->author)->where('book_id', $request->book)->where('year', $year)->where('month', $month)->first();
                     if($podFirst){
                         if($podFirst->format == 'Hardback'){
                             $quantity = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Hardback')->sum('quantity');
@@ -96,7 +96,20 @@ class GeneratePdfController extends Controller
                 }
             }
         }
+        $totalPOD = [];
+        $totalPOD['title']= $podTransactions[0]->book->title ." Total";
+        $totalPOD['quantity'] = $podTransactions->sum('quantity');
+        $totalPOD['royalty'] = $podTransactions->sum('royalty');
+        $totalPOD['price'] = $podTransactions[0]->price;
 
+
+        $totalEbook = [];
+        $totalEbook['title'] = $ebookTransactions[0]->book->title .' Total';
+        $totalEbook['quantity'] = $ebookTransactions->sum('quantity');
+        $totalEbook['royalty'] = $ebookTransactions->sum('royalty');
+        $totalEbook['price'] = $ebookTransactions[0]->price;
+
+        // pods, ebooks, totalPOD, totalEbook
 
         // return view('report.pdf');
         $pdf = PDF::loadView('report.pdf');
