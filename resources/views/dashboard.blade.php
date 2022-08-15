@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-center align-content-center mt-5">
             <div class="col-md-5">
-                <form action="" method="post" class="card p-4 shadow">
+                <form action="{{route('generate.pdf')}}" method="post" class="card p-4 shadow">
                     <h5 class="text-center">Generate PDF</h5>
                     @csrf
                     <div class="form-group my-1">
@@ -16,6 +16,9 @@
                                 <option value="{{$author->id}}">{{$author->getFullName()}}</option>
                             @endforeach
                         </select>
+                        @error('author')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
                     </div>
                     <div class="form-group my-1">
                         <label for="book">Book</label>
@@ -25,14 +28,21 @@
                                 <option value="{{$book->id}}">{{$book->title}}</option>
                             @endforeach
                         </select>
+                        @error('book')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
                     </div>
                     <div class="d-flex gap-2">
                         <div class="form-group my-1 w-100 card p-2">
-                            <h6>Date From</h6>
+                            <h6 class="text-center">Date From</h6>
                             <label for="fromYear">Year</label>
                             <select name="fromYear" id="fromYear" class="form-select">
                                 <option value="" disabled selected>Select one</option>
                             </select>
+                            @error('fromYear')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
+
                             <label for="fromMonth">Month</label>
                             <select name="fromMonth" id="fromMonth" class="form-select">
                                 <option value="" disabled selected>Select one</option>
@@ -44,13 +54,20 @@
                                     @endif
                                 @endforeach
                             </select>
+                            @error('fromMonth')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
                         </div>
                         <div class="form-group my-1 w-100 card p-2">
-                            <h6>Date To</h6>
+                            <h6 class="text-center">Date To</h6>
                             <label for="toYear">Year</label>
                             <select name="toYear" id="toYear" class="form-select">
                                 <option value="" disabled selected>Select one</option>
                             </select>
+                            @error('toYear')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
+
                             <label for="toMonth">Month</label>
                             <select name="toMonth" id="toMonth" class="form-select">
                                 <option value="" disabled selected>Select one</option>
@@ -62,6 +79,9 @@
                                     @endif
                                 @endforeach
                             </select>
+                            @error('toMonth')
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
                         </div>
                     </div>
 

@@ -95,7 +95,7 @@ Route::middleware('auth')->group(function(){
 
 
     Route::controller(GeneratePdfController::class)->prefix('generate')->group(function(){
-        Route::get('/', 'generate')->name('generate.pdf');
+        Route::post('/', 'generate')->name('generate.pdf');
     });
 
     Route::controller(GenerateReportController::class)->prefix('transaction')->group(function(){
