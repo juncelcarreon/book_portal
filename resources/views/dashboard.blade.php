@@ -27,7 +27,7 @@
                         </select>
                     </div>
                     <div class="d-flex gap-2">
-                        <div class="form-group my-1 w-100">
+                        <div class="form-group my-1 w-100 card p-2">
                             <h6>Date From</h6>
                             <label for="fromYear">Year</label>
                             <select name="fromYear" id="fromYear" class="form-select">
@@ -38,7 +38,7 @@
                                 <option value="" disabled selected>Select one</option>
                             </select>
                         </div>
-                        <div class="form-group my-1 w-100">
+                        <div class="form-group my-1 w-100 card p-2">
                             <h6>Date To</h6>
                             <label for="toYear">Year</label>
                             <select name="toYear" id="toYear" class="form-select">
@@ -78,7 +78,7 @@
         // Id of dropdown
         $('#author').change(async() => {
             //get the #book element (dropdown)
-            let element = document.getElementByID('book')
+            let element = document.getElementById('book')
             //remove existing data in dropdown (#book)
             removeOptions(element)
 
@@ -87,7 +87,11 @@
             //convert response to json
             let data = await response.json()
             //add the data to dropdoen, from the server which is the response
-            createOption(element, filteredData, 'book')
+            createOptions(element, data, 'book')
+        });
+
+        $('#book').change(async() => {
+            let element = document.getElementById('')
         });
 
         const removeOptions = (element) => {
@@ -109,13 +113,17 @@
                     var opt = document.createElement('option')
                     if(type === 'book'){
                         opt.value = item.book_title
-                        option.innerText = item.book_title
+                        opt.innerText = item.book_title
                     }else{
                         opt.value = item.year
                         opt.innerText = item.year
                     }
                     element.appendChild(opt)
                 })
+            }else{
+                var opt = document.createElement('option')
+                opt.innerText = "No Book Found";
+                element.appendChild(opt)
             }
         }
     })

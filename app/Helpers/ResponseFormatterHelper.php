@@ -4,12 +4,12 @@ namespace App\Helpers;
 
 class ResponseFormatterHelper {
 
-    public static function generateResponseOnlyBook(...$datas)
+    public static function generateResponseOnlyBook(...$data)
     {
         $response = [];
-        foreach($datas as $data)
+        foreach($data as $datum)
         {
-            foreach($data as $transaction)
+            foreach($datum as $transaction)
             {
                 if($transaction){
                     if(!in_array(['book_id' => $transaction->book_id, 'book_title' => $transaction->book->title], $response))
@@ -23,12 +23,12 @@ class ResponseFormatterHelper {
         return $response;
     }
 
-    public static function generateResponseOnlyYear(...$datas)
+    public static function generateResponseOnlyYear(...$data)
     {
         $response = [];
-        foreach($datas as $data)
+        foreach($data as $datum)
         {
-            foreach($data as $transaction)
+            foreach($datum as $transaction)
             {
                 if($transaction){
                     if(!in_array($transaction->year, $response))
