@@ -108,7 +108,9 @@ class GeneratePdfController extends Controller
         $totalEbook['royalty'] = $ebookTransactions->sum('royalty');
         $totalEbook['price'] = $ebookTransactions[0]->price;
 
-        // pods, ebooks, totalPOD, totalEbook
+        $author = Author::find($request->author);
+
+        // pods, ebooks, totalPOD, totalEbook, author
 
         return view('report.pdf', [
             'pods' => $pods,
