@@ -12,24 +12,45 @@
                         <label for="author">Author</label>
                         <select name="author" id="author" class="form-select select2">
                             <option value="" disabled selected>Select author</option>
+                            @foreach ($authors as $author)
+                                <option value="{{$author->id}}">{{$author->getFullName()}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group my-1">
                         <label for="book">Book</label>
                         <select name="book" id="book" class="form-select select2">
                             <option value="" disabled selected>Select book</option>
+                            @foreach ($books as $book)
+                                <option value="{{$book->id}}">{{$book->title}}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="form-group my-1">
-                        <label for="year">Year</label>
-                        <input type="text" class="form-control" name="year" id="year" value="" required>
+                    <div class="d-flex gap-2">
+                        <div class="form-group my-1 w-100">
+                            <h6>Date From</h6>
+                            <label for="fromYear">Year</label>
+                            <select name="fromYear" id="fromYear" class="form-select">
+                                <option value="" disabled selected>Select one</option>
+                            </select>
+                            <label for="fromMonth">Month</label>
+                            <select name="fromMonth" id="fromMonth" class="form-select">
+                                <option value="" disabled selected>Select one</option>
+                            </select>
+                        </div>
+                        <div class="form-group my-1 w-100">
+                            <h6>Date To</h6>
+                            <label for="toYear">Year</label>
+                            <select name="toYear" id="toYear" class="form-select">
+                                <option value="" disabled selected>Select one</option>
+                            </select>
+                            <label for="toMonth">Month</label>
+                            <select name="toMonth" id="toMonth" class="form-select">
+                                <option value="" disabled selected>Select one</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group my-1">
-                        <label for="month">Month</label>
-                        <select name="month" id="month" class="form-select">
-                            <option value="" disabled selected>Select month</option>
-                        </select>
-                    </div>
+
                     <div class="form-group my-1">
                         <button type="submit" class="btn btn-primary">Generate PDF</button>
                     </div>
@@ -44,14 +65,59 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-   $(document).ready(function(){
-  $("#year").datepicker({
-     format: "yyyy",
-     viewMode: "years",
-     minViewMode: "years",
-     autoclose:true
-  });
-  $('.select2').select2();
-})
+    $(document).ready(function(){
+        // $("#year").datepicker({
+        //    format: "yyyy",
+        //    viewMode: "years",
+        //    minViewMode: "years",
+        //    autoclose:true
+        // });
+
+        $('.select2').select2();
+
+        // Id of dropdown
+        $('#author').change(async() => {
+            //get the #book element (dropdown)
+            let element = document.getElementByID('book')
+            //remove existing data in dropdown (#book)
+            removeOptions(element)
+
+            //fetch data from the server base on user id
+            const response = await fetch('/transaction/' + $('#author').val());
+            //convert response to json
+            let data = await response.json()
+            //add the data to dropdoen, from the server which is the response
+            createOption(element, filteredData, 'book')
+        });
+
+        const removeOptions = (element) => {
+            while(element.length > 1){
+                element.remove(element.length - 1)
+            }
+        }
+
+        const createOptions = (element, items, type) => {
+            if(items.length > 0){
+                if(type != 'year'){
+                    let allOpt = document.createElement('option')
+                        allOpt.value = 'all'
+                        allOpt.innerText = 'All'
+                    element.append(allOpt)
+                }
+
+                items.forEach((item) => {
+                    var opt = document.createElement('option')
+                    if(type === 'book'){
+                        opt.value = item.book_title
+                        option.innerText = item.book_title
+                    }else{
+                        opt.value = item.year
+                        opt.innerText = item.year
+                    }
+                    element.appendChild(opt)
+                })
+            }
+        }
+    })
 </script>
 @endsection
