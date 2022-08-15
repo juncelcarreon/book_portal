@@ -12,7 +12,10 @@ class ResponseFormatterHelper {
             foreach($data as $transaction)
             {
                 if($transaction){
-                    array_push($response, ['book_id' => $transaction->book_id, 'book_title' => $transaction->book->title]);
+                    if(!in_array(['book_id' => $transaction->book_id, 'book_title' => $transaction->book->title], $response))
+                    {
+                        array_push($response, ['book_id' => $transaction->book_id, 'book_title' => $transaction->book->title]);
+                    }
                 }
             }
         }

@@ -14,7 +14,7 @@ class GenerateReportController extends Controller
         $pods = PodTransaction::where('author_id', $request->author)->get();
         $ebooks = EbookTransaction::where('author_id', $request->author)->get();
 
-        $response = ResponseFormatterHelper::generateResponseOnlyBook($pods);
+        $response = ResponseFormatterHelper::generateResponseOnlyBook($pods, $ebooks);
 
         return response()->json($response);
     }
