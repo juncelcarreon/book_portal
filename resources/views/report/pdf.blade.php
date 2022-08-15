@@ -76,16 +76,17 @@
                 </tr>
             </thead>
             <tbody style="">
-                @for ($x = 1; $x <= 5; $x++)
+                @foreach ($ebooks as $ebook)
                     <tr>
-                        <td style="border: 1px solid; width:230px;" >Patchwork {{$x}}</td>
-                        <td style="border: 1px solid; width:90px; text-align:center;">September</td>
-                        <td style="border: 1px solid; width:50px; text-align:center;">2020</td>
-                        <td style="border: 1px solid; width:50px; text-align:center;">2</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">$2.99</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">$1.20</td>
+                        <td style="border: 1px solid; width:230px;" >{{$ebook['title']}}</td>
+                        <td style="border: 1px solid; width:90px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['year']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">{{$ebook['quantity']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
                     </tr>
-                @endfor
+                    @endforeach
+
                 <tr>
                     <td colspan="3" style="border: 1px solid; width:90px; "><b>Grand Total</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>10</b></td>
