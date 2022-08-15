@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
+use App\Models\PodTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,9 +32,19 @@ class AuthenticationController extends Controller
         ]);
     }
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        return view('dashboard');
+        $books = [];
+        $authors = Author::all();
+        if($request->author){
+            foreach($authors as $author){
+                if($request->author ==$authors->id){
+                    $books = PodTransaction::where('author_id', $authors->id)->first();
+                }
+            }
+        }
+
+        return view('dashboard', compact('authors', 'books'));
     }
 
     public function logout(Request $request)

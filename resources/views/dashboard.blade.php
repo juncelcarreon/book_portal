@@ -12,12 +12,18 @@
                         <label for="author">Author</label>
                         <select name="author" id="author" class="form-select select2">
                             <option value="" disabled selected>Select author</option>
+                            @foreach ($authors as $author)
+                                <option value="{{$author->id}}">{{$author->getFullName()}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group my-1">
                         <label for="book">Book</label>
                         <select name="book" id="book" class="form-select select2">
                             <option value="" disabled selected>Select book</option>
+                            @foreach ($books as $book)
+                                <option value="{{$book->id}}">{{$book->title}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group my-1">

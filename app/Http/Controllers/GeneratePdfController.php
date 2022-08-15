@@ -12,4 +12,5 @@ class GeneratePdfController extends Controller
         $pdf = PDF::loadView('report.pdf');
         return $pdf->download('file.pdf');
     }
+
 }
