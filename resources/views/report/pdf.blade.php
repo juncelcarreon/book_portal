@@ -52,6 +52,7 @@
                         <td style="border: 1px solid; width:70px; text-align:center;">$1.99</td>
                     </tr>
                 @endfor
+
             </tbody>
         </table>
     </div>
