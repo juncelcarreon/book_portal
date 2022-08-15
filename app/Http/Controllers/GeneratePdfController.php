@@ -33,7 +33,6 @@ class GeneratePdfController extends Controller
                                 ->where('year', '>=', $request->fromYear)->where('year', '<=', $request->toYear)
                                 ->where('month', '>=', $request->fromMonth)->where('month', '<=', $request->toMonth)->get();
 
-
         if(count($podTransactions) > 0){
 
             $years = [];
@@ -72,7 +71,7 @@ class GeneratePdfController extends Controller
                                 ->where('year', '>=', $request->fromYear)->where('month', '>=', $request->fromMonth)
                                 ->where('year', '<=', $request->toYear)->where('month', '<=', $request->toMonth)->get();
 
-                                $years = [];
+        $years = [];
         $months = [];
         foreach($ebookTransactions as $ebook)
         {
@@ -96,11 +95,12 @@ class GeneratePdfController extends Controller
                 }
             }
         }
-
-
-        // return view('report.pdf');
-        $pdf = PDF::loadView('report.pdf');
-        return $pdf->download('file.pdf');
+        return view('report.pdf', [
+            'pods' => $pods,
+            'ebooks' => $ebooks
+        ]);
+        // $pdf = PDF::loadView('report.pdf');
+        // return $pdf->download('file.pdf');
     }
-
 }
+
