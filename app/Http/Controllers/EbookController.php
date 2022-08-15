@@ -36,7 +36,7 @@ class EbookController extends Controller
 
     public function create()
     {
-        $months = MonthHelper::getAlternativeMonth();
+        $months = MonthHelper::getMonths();
         $authors = Author::all();
         $books = Book::all();
         return view('ebook.create', compact('months', 'authors', 'books'));
@@ -75,7 +75,7 @@ class EbookController extends Controller
 
     public function edit(EbookTransaction $ebook)
     {
-        $months = MonthHelper::getAlternativeMonth();
+        $months = MonthHelper::getMonths();
         $authors = Author::all();
         $books = Book::all();
         return view('ebook.edit', compact('ebook', 'months', 'authors', 'books'));

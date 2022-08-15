@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MonthHelper;
 use App\Models\Author;
 use App\Models\PodTransaction;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ class AuthenticationController extends Controller
 
     public function dashboard(Request $request)
     {
+        $months = MonthHelper::getMonths();
         $books = [];
         $authors = Author::all();
         if($request->author){
@@ -44,7 +46,7 @@ class AuthenticationController extends Controller
             }
         }
 
-        return view('dashboard', compact('authors', 'books'));
+        return view('dashboard', compact('authors', 'books', 'months'));
     }
 
     public function logout(Request $request)
