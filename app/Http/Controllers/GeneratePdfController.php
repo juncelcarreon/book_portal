@@ -109,6 +109,7 @@ class GeneratePdfController extends Controller
         $totalEbook['price'] = $ebookTransactions[0]->price;
 
         $author = Author::find($request->author);
+        $totalRoyalties = number_format((float) $totalPOD['royalty'] + $totalEbook['royalty'], 2);
 
         // pods, ebooks, totalPOD, totalEbook, author
 
