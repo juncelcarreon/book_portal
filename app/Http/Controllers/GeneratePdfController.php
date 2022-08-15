@@ -57,23 +57,22 @@ class GeneratePdfController extends Controller
                 }else{
                     $quantity = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Paperback')->sum('quantity');
                     $royalty = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Paperback')->sum('royalty');
-                    $pods->push(['title' => $pod->title, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $quantity, 'price' => $pod->price, 'royalty' => $royalty]);
+                    $pods->push(['title' => $pod->book->title, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $quantity, 'price' => $pod->price, 'royalty' => $royalty]);
                 }
             }
         }
-
-
-        dd($pods);
 
         $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('book_id', $request->book)
                                 ->where('year', '>=', $request->fromYear)->where('month', '>=', $request->fromMonth)
                                 ->where('year', '<=', $request->toYear)->where('month', '<=', $request->toMonth)->get();
 
+        // dd($pods);
 
-
-        // return view('report.pdf');
-        $pdf = PDF::loadView('report.pdf');
-        return $pdf->download('file.pdf');
+        return view('report.pdf', [
+            'pods' => $pods
+        ]);
+        // $pdf = PDF::loadView('report.pdf');
+        // return $pdf->download('file.pdf');
     }
 
 }

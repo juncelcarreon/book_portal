@@ -41,17 +41,19 @@
                 </tr>
             </thead>
             <tbody style="">
-                @for ($x = 1; $x <= 5; $x++)
+                @foreach ($pods as $pod)
                     <tr>
-                        <td style="border: 1px solid; width:230px;" >Sample Title {{$x}}</td>
-                        <td style="border: 1px solid; width:90px; text-align:center;">Patchbook</td>
-                        <td style="border: 1px solid; width:50px; text-align:center;">January</td>
-                        <td style="border: 1px solid; width:50px; text-align:center;">2022</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">20</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">$2.99</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">$1.99</td>
+                        <td style="border: 1px solid; width:230px;" >{{$pod['title']}}</td>
+                        <td style="border: 1px solid; width:90px; text-align:center;">{{$pod['format']}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['year']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['royalty']}}</td>
                     </tr>
-                @endfor
+
+                @endforeach
+
                     <tr>
                         <td colspan="4" style="border: 1px solid; width:90px; "><b>Grand Total</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>100</b></td>
