@@ -56,9 +56,9 @@
 
                     <tr>
                         <td colspan="4" style="border: 1px solid; width:90px; "><b>Grand Total</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>100</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>$15.00</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>$10.00</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPOD['quantity']}}</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPOD['price']}}</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPOD['royalty']}}</b></td>
                     </tr>
             </tbody>
         </table>
@@ -89,9 +89,9 @@
 
                 <tr>
                     <td colspan="3" style="border: 1px solid; width:90px; "><b>Grand Total</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>10</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>$15.00</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>$10.00</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbook['quantity']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbook['price']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbook['royalty']}}</b></td>
                 </tr>
             </tbody>
         </table>
