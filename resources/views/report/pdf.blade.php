@@ -23,11 +23,11 @@
         <h6 style="font-size: 30px;">Royalty Statement</h6>
     </div>
     <div class="details" style="margin-top: 30px;">
-        <h6 style="font-size: 20px;"><b>June Vic W. Cadayona</b></h6>
-        <span style="font-size: 15px;">Tres De Abril, Labangon, Cebu City</span>
+        <h6 style="font-size: 20px;"><b>{{$author->getFullName()}}</b></h6>
+        <span style="font-size: 15px;">{{$author->address}}</span>
     </div>
     <div class="transaction" style="margin-top: 30px;">
-        <span>Statement Period: <b>(From)</b> to <b>(End)</b></span>
+        <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
         <table style="width:100%;font-size: 14px;">
             <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">
                 <tr style="text-align:center;">
@@ -96,8 +96,8 @@
             </tbody>
         </table>
     </div>
-    <h5 class="mt-3">Total Royalties accrued as of this period: $192.00</h5>
-    <h5>Royalties for payout: $192.00</h5>
+    <h5 class="mt-3">Total Royalties accrued as of this period: ${{$totalRoyalties}}</h5>
+    <h5>Royalties for payout: ${{$totalRoyalties}}</h5>
 </div>
 
 @endsection

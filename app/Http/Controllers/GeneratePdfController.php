@@ -113,14 +113,27 @@ class GeneratePdfController extends Controller
 
         // pods, ebooks, totalPOD, totalEbook, author
 
-        return view('report.pdf', [
+        // return view('report.pdf', [
+        //     'pods' => $pods,
+        //     'ebooks' => $ebooks,
+        //     'totalPOD' => $totalPOD,
+        //     'totalEbook' => $totalEbook,
+        //     'author' => $author,
+        //     'totalRoyalties' => $totalRoyalties
+        // ]);
+        $pdf = PDF::loadView('report.pdf',[
             'pods' => $pods,
             'ebooks' => $ebooks,
             'totalPOD' => $totalPOD,
-            'totalEbook' => $totalEbook
+            'totalEbook' => $totalEbook,
+            'author' => $author,
+            'totalRoyalties' => $totalRoyalties,
+            'fromYear' => $request->fromYear,
+            'fromMonth' => $request->fromMonth,
+            'toYear' => $request->toYear,
+            'toMonth' => $request->toMonth
         ]);
-        // $pdf = PDF::loadView('report.pdf');
-        // return $pdf->download('file.pdf');
+        return $pdf->download('file.pdf');
 
     }
 }
