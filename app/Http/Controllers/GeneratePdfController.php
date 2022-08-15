@@ -9,9 +9,9 @@ class GeneratePdfController extends Controller
 {
     public function generate()
     {
-        // return view('report.pdf');
-        $pdf = PDF::loadView('report.pdf');
-        return $pdf->download('file.pdf');
+        return view('report.pdf');
+        // $pdf = PDF::loadView('report.pdf');
+        // return $pdf->download('file.pdf');
     }
 
 }

@@ -41,7 +41,7 @@
                 </tr>
             </thead>
             <tbody style="">
-                @for ($x = 1; $x <= 20; $x++)
+                @for ($x = 1; $x <= 5; $x++)
                     <tr>
                         <td style="border: 1px solid; width:230px;" >Sample Title {{$x}}</td>
                         <td style="border: 1px solid; width:90px; text-align:center;">Patchbook</td>
@@ -52,9 +52,49 @@
                         <td style="border: 1px solid; width:70px; text-align:center;">$1.99</td>
                     </tr>
                 @endfor
+                    <tr>
+                        <td colspan="4" style="border: 1px solid; width:90px; "><b>Grand Total</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>100</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>$15.00</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>$10.00</b></td>
+                    </tr>
             </tbody>
         </table>
     </div>
+    <div class="transaction" style="margin-top: 30px;">
+        <table style="width:100%;font-size: 14px;">
+            <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">
+                <tr style="text-align:center;">
+                    <th style="border: 1px solid;">eBook</th>
+                    <th style="border: 1px solid;">Month</th>
+                    <th style="border: 1px solid;">Year</th>
+                    <th style="border: 1px solid;">Quantity</th>
+                    <th style="border: 1px solid;">Retail Price</th>
+                    <th style="border: 1px solid;">Author Royalty</th>
+                </tr>
+            </thead>
+            <tbody style="">
+                @for ($x = 1; $x <= 5; $x++)
+                    <tr>
+                        <td style="border: 1px solid; width:230px;" >Patchwork {{$x}}</td>
+                        <td style="border: 1px solid; width:90px; text-align:center;">September</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">2020</td>
+                        <td style="border: 1px solid; width:50px; text-align:center;">2</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">$2.99</td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">$1.20</td>
+                    </tr>
+                @endfor
+                <tr>
+                    <td colspan="3" style="border: 1px solid; width:90px; "><b>Grand Total</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>10</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>$15.00</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>$10.00</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h5 class="mt-3">Total Royalties accrued as of this period: $192.00</h5>
+    <h5>Royalties for payout: $192.00</h5>
 </div>
 
 @endsection
