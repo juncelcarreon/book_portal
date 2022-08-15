@@ -36,6 +36,13 @@
                             <label for="fromMonth">Month</label>
                             <select name="fromMonth" id="fromMonth" class="form-select">
                                 <option value="" disabled selected>Select one</option>
+                                @foreach ($months as $key => $value)
+                                    @if (old('fromMonth') == $key)
+                                        <option value="{{$key}}" selected>{{$value}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group my-1 w-100 card p-2">
@@ -47,6 +54,13 @@
                             <label for="toMonth">Month</label>
                             <select name="toMonth" id="toMonth" class="form-select">
                                 <option value="" disabled selected>Select one</option>
+                                @foreach ($months as $key => $value)
+                                    @if (old('toMonth') == $key)
+                                        <option value="{{$key}}" selected>{{$value}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                     </div>

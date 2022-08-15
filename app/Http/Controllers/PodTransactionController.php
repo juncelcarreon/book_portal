@@ -37,7 +37,7 @@ class PodTransactionController extends Controller
     }
     public function create()
     {
-        $months = MonthHelper::getAlternativeMonth();
+        $months = MonthHelper::getMonths();
         $authors = Author::all();
         $books = Book::all();
         return view('pod.create', compact('months', 'authors', 'books'));
@@ -100,7 +100,7 @@ class PodTransactionController extends Controller
 
     public function edit(PodTransaction $pod)
     {
-        $months = MonthHelper::getAlternativeMonth();
+        $months = MonthHelper::getMonths();
         $authors = Author::all();
         $books = Book::all();
         return view('pod.edit', compact('pod', 'months', 'authors', 'books'));
