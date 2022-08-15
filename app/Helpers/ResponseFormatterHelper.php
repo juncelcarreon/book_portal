@@ -23,4 +23,23 @@ class ResponseFormatterHelper {
         return $response;
     }
 
+    public static function generateResponseOnlyYear(...$datas)
+    {
+        $response = [];
+        foreach($datas as $data)
+        {
+            foreach($data as $transaction)
+            {
+                if($transaction){
+                    if(!in_array($transaction->year, $response))
+                    {
+                        array_push($response, $transaction->year);
+                    }
+                }
+            }
+        }
+
+        return $response;
+    }
+
 }

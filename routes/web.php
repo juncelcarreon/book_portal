@@ -98,9 +98,10 @@ Route::middleware('auth')->group(function(){
         Route::get('/', 'generate')->name('generate.pdf');
     });
 
+    Route::controller(GenerateReportController::class)->prefix('transaction')->group(function(){
+        Route::get('/{author}','getBook')->name('transaction.get-book');
+        Route::get('/{author}/{book}', 'getYear')->name('transaction.get-year');
+    });
 });
 
-Route::controller(GenerateReportController::class)->prefix('transaction')->group(function(){
-    Route::get('/{author}','getBook')->name('transaction.get-book');
-});
 
