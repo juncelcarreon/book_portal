@@ -31,7 +31,7 @@ class MonthHelper {
         return self::$MONTHS[$string];
     }
 
-    public static function getAlternativeMonth()
+    public static function getMonths()
     {
         return self::$MONTHS;
     }
