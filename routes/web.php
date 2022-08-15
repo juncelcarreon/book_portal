@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\EbookController;
 use App\Http\Controllers\GeneratePdfController;
+use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\PodTransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -96,6 +97,10 @@ Route::middleware('auth')->group(function(){
     Route::controller(GeneratePdfController::class)->prefix('generate')->group(function(){
         Route::get('/', 'generate')->name('generate.pdf');
     });
+
 });
 
+Route::controller(GenerateReportController::class)->prefix('transaction')->group(function(){
+    Route::get('/{author}','getBook')->name('transaction.get-book');
+});
 
