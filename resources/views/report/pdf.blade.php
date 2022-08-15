@@ -26,7 +26,7 @@
         <h6 style="font-size: 20px;"><b>{{$author->getFullName()}}</b></h6>
         <span style="font-size: 15px;">{{$author->address}}</span>
     </div>
-    @if($pods)
+    @if(count($pods) > 0)
     <div class="transaction" style="margin-top: 30px;">
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
         <table style="width:100%;font-size: 14px;">
@@ -65,7 +65,7 @@
         </table>
     </div>
     @endif
-    @if($ebooks)
+    @if(count($ebooks) > 0)
     <div class="transaction" style="margin-top: 30px;">
         <table style="width:100%;font-size: 14px;">
             <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">
