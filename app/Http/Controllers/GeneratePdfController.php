@@ -96,20 +96,24 @@ class GeneratePdfController extends Controller
             }
         }
         $totalPOD = [];
-        $totalPOD['title']= $podTransactions[0]->book->title ." Total";
-        $totalPOD['quantity'] = $podTransactions->sum('quantity');
-        $totalPOD['royalty'] = number_format((float)$podTransactions->sum('royalty'), 2);
-        $totalPOD['price'] = $podTransactions[0]->price;
+        if(count($podTransactions) > 0){
+            $totalPOD['title']= $podTransactions[0]->book->title ." Total";
+            $totalPOD['quantity'] = $podTransactions->sum('quantity');
+            $totalPOD['royalty'] = number_format((float)$podTransactions->sum('royalty'), 2);
+            $totalPOD['price'] = $podTransactions[0]->price;
+        }
 
 
         $totalEbook = [];
-        $totalEbook['title'] = $ebookTransactions[0]->book->title .' Total';
-        $totalEbook['quantity'] = $ebookTransactions->sum('quantity');
-        $totalEbook['royalty'] = number_format((float)$ebookTransactions->sum('royalty'), 2);
-        $totalEbook['price'] = $ebookTransactions[0]->price;
+        if(count($ebookTransactions) > 0){
+            $totalEbook['title'] = $ebookTransactions[0]->book->title .' Total';
+            $totalEbook['quantity'] = $ebookTransactions->sum('quantity');
+            $totalEbook['royalty'] = number_format((float)$ebookTransactions->sum('royalty'), 2);
+            $totalEbook['price'] = $ebookTransactions[0]->price;
+        }
 
         $author = Author::find($request->author);
-        $totalRoyalties = number_format((float) $totalPOD['royalty'] + $totalEbook['royalty'], 2);
+        $totalRoyalties = number_format((float) $totalPOD['royalty'] ?? 0 + $totalEbook['royalty'] ?? 0, 2);
 
         // pods, ebooks, totalPOD, totalEbook, author
 
