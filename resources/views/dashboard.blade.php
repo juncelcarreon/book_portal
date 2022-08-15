@@ -91,7 +91,20 @@
         });
 
         $('#book').change(async() => {
-            let element = document.getElementById('')
+            let fromYear = document.getElementById('fromYear')
+            let toYear = document.getElementById('toYear')
+
+            removeOptions(fromYear)
+            removeOptions(toYear)
+
+            try{
+                const response = await fetch('/transaction/'+$('#author').val() +'/'+$('#book').val());
+                let data = await response.json();
+                createOptions(fromYear, data, 'year')
+                createOptions(toYear, data, 'year')
+            }catch($ex){
+                console.log($ex);
+            }
         });
 
         const removeOptions = (element) => {
@@ -102,27 +115,27 @@
 
         const createOptions = (element, items, type) => {
             if(items.length > 0){
-                if(type != 'year'){
-                    let allOpt = document.createElement('option')
-                        allOpt.value = 'all'
-                        allOpt.innerText = 'All'
-                    element.append(allOpt)
-                }
+                // if(type != 'year'){
+                //     let allOpt = document.createElement('option')
+                //         allOpt.value = 'all'
+                //         allOpt.innerText = 'All'
+                //     element.append(allOpt)
+                // }
 
                 items.forEach((item) => {
                     var opt = document.createElement('option')
                     if(type === 'book'){
-                        opt.value = item.book_title
+                        opt.value = item.book_id
                         opt.innerText = item.book_title
                     }else{
-                        opt.value = item.year
-                        opt.innerText = item.year
+                        opt.value = item
+                        opt.innerText = item
                     }
                     element.appendChild(opt)
                 })
             }else{
                 var opt = document.createElement('option')
-                opt.innerText = "No Book Found";
+                opt.innerText = "No data found";
                 element.appendChild(opt)
             }
         }
