@@ -50,14 +50,75 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-   $(document).ready(function(){
-  $("#year").datepicker({
-     format: "yyyy",
-     viewMode: "years",
-     minViewMode: "years",
-     autoclose:true
-  });
-  $('.select2').select2();
-})
+    $(document).ready(function(){
+        $("#year").datepicker({
+           format: "yyyy",
+           viewMode: "years",
+           minViewMode: "years",
+           autoclose:true
+        });
+
+        $('.select2').select2();
+
+        // Id of dropdown
+        $('#author').change(async() => {
+            //get the #book element (dropdown)
+            let element = document.getElementByID('book')
+            //remove existing data in dropdown (#book)
+            removeOptions(element)
+
+            //fetch data from the server base on user id
+            const response = await fetch('/transaction/{author}')+$('#author').val());
+            //convert response to json
+            let data = await response.json()
+            //understandable
+            let filteredData = filterDuplicateData(data, 'book')
+            //add the data to dropdoen, from the server which is the response
+            createOption(element, filteredData, 'book')
+        });
+
+        const removeOptions = (element) => {
+            while(element.length > 1){
+                element.remove(element.length - 1)
+            }
+        }
+
+        const createOptions = (element, items, type) => {
+            if(items.length > 0){
+                if(type != 'year'){
+                    let allOpt = document.createElement('option')
+                        allOpt.value = 'all'
+                        allOpt.innerText = 'All'
+                    element.append(allOpt)
+                }
+
+                items.forEach((item) => {
+                    var opt = document.createElement('option')
+                    if(type === 'book'){
+                        opt.value = item.book_title
+                        option.innerText = item.book_title
+                    }else{
+                        opt.value = item.year
+                        opt.innerText = item.year
+                    }
+                    element.appendChild(opt)
+                })
+            }
+        }
+
+        const filterDuplicateData = (data, type) => {
+            const uniqueItem = [];
+
+            const unique = data.filter(element => {
+                let isDuplicate = uniqueItem.includes(type === 'book' ? element.book_title : element.year);
+                if(isDuplicate) {
+                    uniqueItem.push(type == 'book') ? element.book_title : element.year
+                    return true;
+                }
+                return false;
+            });
+            return unique;
+        }
+    })
 </script>
 @endsection
