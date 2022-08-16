@@ -38,7 +38,7 @@ class GeneratePdfController extends Controller
                                 ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
                                 ->get();
 
-
+        $pods = collect();
         if(count($podTransactions) > 0){
 
             $years = [];
@@ -53,7 +53,7 @@ class GeneratePdfController extends Controller
                 }
             }
 
-            $pods = collect();
+
             foreach($years as $year)
             {
                 foreach($months as $month){
