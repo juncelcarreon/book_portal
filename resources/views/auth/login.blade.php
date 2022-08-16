@@ -8,7 +8,7 @@
                     <img src="{{asset('images/readers_magnet.png')}}" height="100" width="100" alt="" srcset="">
                     {{-- <img src="{{asset('images/readers_magnet.png')}}" height="90" width="90" alt="" srcset=""> --}}
                 </div>
-                <h5 class="text-center my-2">Automation of Royalty Calculation</h5>
+                <h5 class="text-center my-2">Royalty Calculation</h5>
                 <form action="" method="post" class="card p-4 shadow">
                     @csrf
                     <div class="form-group my-2">
