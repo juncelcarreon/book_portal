@@ -22,6 +22,10 @@ class GeneratePdfController extends Controller
             'toMonth' => 'required'
         ]);
 
+        if($request->fromYear > $request->toYear){
+            return back()->withErrors(['fromYear' => 'Date From Year should not be greater than Date To Year']);
+        }
+
         if($request->fromMonth > $request->toMonth){
             return back()->withErrors(['fromMonth' => 'Date From Month should not be greater than Date To Month']);
         }
@@ -30,8 +34,10 @@ class GeneratePdfController extends Controller
         $book = Book::find($request->book);
 
         $podTransactions = PodTransaction::where('author_id', $request->author)->where('book_id', $request->book)
-                                ->where('year', '>=', $request->fromYear)->where('year', '<=', $request->toYear)
-                                ->where('month', '>=', $request->fromMonth)->where('month', '<=', $request->toMonth)->get();
+                                ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
+                                ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
+                                ->get();
+
 
         if(count($podTransactions) > 0){
 
@@ -67,9 +73,7 @@ class GeneratePdfController extends Controller
             }
         }
 
-        $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('book_id', $request->book)
-                                ->where('year', '>=', $request->fromYear)->where('month', '>=', $request->fromMonth)
-                                ->where('year', '<=', $request->toYear)->where('month', '<=', $request->toMonth)->get();
+        $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('book_id', $request->book)->get();
 
         $years = [];
         $months = [];
