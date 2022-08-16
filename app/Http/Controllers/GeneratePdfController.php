@@ -73,7 +73,10 @@ class GeneratePdfController extends Controller
             }
         }
 
-        $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('book_id', $request->book)->get();
+        $ebookTransactions = EbookTransaction::where('author_id', $request->author)->where('book_id', $request->book)
+                                    ->where('year', '>=', $request->fromYear)->where('year','<=', $request->toYear)
+                                    ->where('month', '>=', (int) $request->fromMonth )->where('month', '<=', (int) $request->toMonth)
+                                    ->get();
 
         $years = [];
         $months = [];
