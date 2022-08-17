@@ -95,7 +95,7 @@ class EbookController extends Controller
 
         $ebook->update([
             'author_id' => $request->author,
-            'bood_id' => $request->book,
+            'book_id' => $request->book,
             'year' => $request->year,
             'month' => $request->month,
             'quantity' => $request->quantity,
@@ -103,6 +103,7 @@ class EbookController extends Controller
             'proceeds' => $request->proceeds,
             'royalty' => $request->proceeds / 2
         ]);
+
 
         return redirect(route('ebook.edit', ['ebook' => $ebook]))->with('success', 'Transaction successfully updated');
     }
