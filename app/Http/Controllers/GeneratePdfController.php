@@ -152,6 +152,9 @@ class GeneratePdfController extends Controller
         $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
         $currentDate = Carbon::now();
 
+        $imageUrl = asset('images/header.png');
+
+
         // return view('report.pdf', [
         //     'pods' => $pods,
         //     'ebooks' => $ebooks,
@@ -162,8 +165,12 @@ class GeneratePdfController extends Controller
         //     'fromYear' => $request->fromYear,
         //     'fromMonth' => $request->fromMonth,
         //     'toYear' => $request->toYear,
-        //     'toMonth' => $request->toMonth
+        //     'toMonth' => $request->toMonth,
+        //     'numberFormatter' => $numberFormatter,
+        //     'currentDate' => $currentDate,
+        //     'imageUrl' => $imageUrl
         // ]);
+
         $pdf = PDF::loadView('report.pdf',[
             'pods' => $pods,
             'ebooks' => $ebooks,
@@ -176,9 +183,10 @@ class GeneratePdfController extends Controller
             'toYear' => $request->toYear,
             'toMonth' => $request->toMonth,
             'numberFormatter' => $numberFormatter,
-            'currentDate' => $currentDate
+            'currentDate' => $currentDate,
+            'imageUrl' => $imageUrl,
         ]);
-
+        return $pdf->download('royalty.pdf');
 
 
     }

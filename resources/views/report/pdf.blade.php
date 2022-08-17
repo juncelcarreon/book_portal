@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<style type="text/css">
     body{
         background: #ffffff;
     }
 </style>
 
-<div class="upper" style="">
-    <div class="image-container">
+<div class="upper">
+    {{-- <div class="image-container">
         <img src="https://readersmagnet.com/wp-content/uploads/2019/08/ReadersMagnet-Favicon.png" height="150px" width="150px" alt="Readers Magnet Image" srcset="">
     </div>
     <div class="detail-container" style="position:absolute; right:0; top:40px;">
@@ -16,12 +17,14 @@
         <br>
         <a href="info@readersmagnet.com" style="position: relative; bottom: 10px;">info@readersmagnet.com</a>
         <p>(800) 805-0762</p>
-    </div>
+    </div> --}}
+
+    <img src="https://res.cloudinary.com/dadkdj2t7/image/upload/v1660770547/header_n3wduk.png" alt="" srcset="" style="width:100%">
 </div>
 <div id="lower">
-    <div class="title" style="text-align: center;">
+    {{-- <div class="title" style="text-align: center;">
         <h6 style="font-size: 30px;">Royalty Statement</h6>
-    </div>
+    </div> --}}
     <div class="details" style="margin-top: 30px;">
         <span>{{$currentDate}}</span>
         <h6 class="mt-4" style="font-size: 15px;"><b>{{$author->getFullName()}}</b></h6>
@@ -30,7 +33,7 @@
     <div class="details" style="margin-top: 30px;">
         <span style="font-size: 15px; mb-5;">Dear {{$author->firstname}},</span>
         <br><br>
-        <span style="font-size: 15px;">Enclosed is the royalty payment amounting to ${{$totalRoyalties}} ({{$numberFormatter}}).</span>
+        <span style="font-size: 15px;">Enclosed is the royalty payment amounting to <strong>${{$totalRoyalties}}</strong> ({{$numberFormatter}}).</span>
         <br>
         <span  style="font-size: 15px;">Royalty statement details below:</span>
     </div>
