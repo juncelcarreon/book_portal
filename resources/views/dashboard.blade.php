@@ -22,11 +22,7 @@
                     </div>
                     <div class="form-group my-1">
                         <label for="book">Book</label>
-                        <select name="book" id="book" class="form-select select2">
-                            <option value="" disabled selected>Select book</option>
-                            @foreach ($books as $book)
-                                <option value="{{$book->id}}">{{$book->title}}</option>
-                            @endforeach
+                        <select name="book[]" multiple="multiple" id="book" class="form-select select2">
                         </select>
                         @error('book')
                             <small class="text-danger">{{$message}}</small>
@@ -116,30 +112,37 @@
             //remove existing data in dropdown (#book)
             removeOptions(element)
 
+            let fromYear = document.getElementById('fromYear')
+            let toYear = document.getElementById('toYear')
+            removeOptions(fromYear)
+            removeOptions(toYear)
+
             //fetch data from the server base on user id
             const response = await fetch('/transaction/' + $('#author').val());
             //convert response to json
             let data = await response.json()
             //add the data to dropdoen, from the server which is the response
-            createOptions(element, data, 'book')
+            createOptions(element, data.books, 'book')
+            createOptions(fromYear, data.dates, 'year')
+            createOptions(toYear, data.dates, 'year')
         });
 
-        $('#book').change(async() => {
-            let fromYear = document.getElementById('fromYear')
-            let toYear = document.getElementById('toYear')
+        // $('#book').change(async() => {
+        //     let fromYear = document.getElementById('fromYear')
+        //     let toYear = document.getElementById('toYear')
 
-            removeOptions(fromYear)
-            removeOptions(toYear)
+        //     removeOptions(fromYear)
+        //     removeOptions(toYear)
 
-            try{
-                const response = await fetch('/transaction/'+$('#author').val() +'/'+$('#book').val());
-                let data = await response.json();
-                createOptions(fromYear, data, 'year')
-                createOptions(toYear, data, 'year')
-            }catch($ex){
-                console.log($ex);
-            }
-        });
+        //     try{
+        //         const response = await fetch('/transaction/'+$('#author').val() +'/'+$('#book').val());
+        //         let data = await response.json();
+        //         createOptions(fromYear, data, 'year')
+        //         createOptions(toYear, data, 'year')
+        //     }catch($ex){
+        //         console.log($ex);
+        //     }
+        // });
 
         const removeOptions = (element) => {
             while(element.length > 1){

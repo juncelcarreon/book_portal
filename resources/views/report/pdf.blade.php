@@ -43,24 +43,31 @@
             </thead>
             <tbody style="">
                 @foreach ($pods as $pod)
-                    <tr>
-                        <td style="border: 1px solid; width:230px;" >{{$pod['title']}}</td>
-                        <td style="border: 1px solid; width:90px; text-align:center;">{{$pod['format']}}</td>
-                        <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
-                        <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['year']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
-                        <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['royalty']}}</td>
-                    </tr>
-
+                    @if(App\Helpers\UtilityHelper::hasTotalString($pod))
+                        <tr>
+                            <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$pod['title']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['price']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['royalty']}}</b></td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td style="border: 1px solid; width:230px;" >{{$pod['title']}}</td>
+                            <td style="border: 1px solid; width:90px; text-align:center;">{{$pod['format']}}</td>
+                            <td style="border: 1px solid; width:50px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($pod['month'])}}</td>
+                            <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['year']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['royalty']}}</td>
+                        </tr>
+                    @endif
                 @endforeach
-
-                    <tr>
-                        <td colspan="4" style="border: 1px solid; width:90px; "><b>Grand Total</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPOD['quantity']}}</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPOD['price']}}</b></td>
-                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPOD['royalty']}}</b></td>
-                    </tr>
+                <tr>
+                    <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$totalPods['title']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['royalty']}}</b></td>
+                </tr>
             </tbody>
         </table>
         @endif
@@ -80,6 +87,14 @@
             </thead>
             <tbody style="">
                 @foreach ($ebooks as $ebook)
+                    @if(App\Helpers\UtilityHelper::hasTotalString($ebook))
+                    <tr>
+                        <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$ebook['title']}}</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['quantity']}}</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['price']}}</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['royalty']}}</b></td>
+                    </tr>
+                    @else
                     <tr>
                         <td style="border: 1px solid; width:230px;" >{{$ebook['title']}}</td>
                         <td style="border: 1px solid; width:90px; text-align:center;">{{App\Helpers\MonthHelper::getStringMonth($ebook['month'])}}</td>
@@ -88,13 +103,13 @@
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['price']}}</td>
                         <td style="border: 1px solid; width:70px; text-align:center;">{{$ebook['royalty']}}</td>
                     </tr>
-                    @endforeach
-
+                    @endif
+                @endforeach
                 <tr>
-                    <td colspan="3" style="border: 1px solid; width:90px; "><b>Grand Total</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbook['quantity']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbook['price']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbook['royalty']}}</b></td>
+                    <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$totalEbooks['title']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['quantity']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalEbooks['royalty']}}</b></td>
                 </tr>
             </tbody>
         </table>

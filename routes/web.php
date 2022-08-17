@@ -100,7 +100,7 @@ Route::middleware('auth')->group(function(){
 
     Route::controller(GenerateReportController::class)->prefix('transaction')->group(function(){
         Route::get('/{author}','getBook')->name('transaction.get-book');
-        Route::get('/{author}/{book}', 'getYear')->name('transaction.get-year');
+        // Route::get('/{author}/{book}', 'getYear')->name('transaction.get-year');
     });
 });
 
