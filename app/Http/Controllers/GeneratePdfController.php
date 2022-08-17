@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\NumberFormatterHelper;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\EbookTransaction;
 use App\Models\PodTransaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use NumberFormatter;
 use PDF;
 
 class GeneratePdfController extends Controller
@@ -119,18 +122,11 @@ class GeneratePdfController extends Controller
 
         $author = Author::find($request->author);
         $totalRoyalties = number_format((float) $totalPOD['royalty'] + $totalEbook['royalty'], 2);
-
+        $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
+        $currentDate = Carbon::now();
         // pods, ebooks, totalPOD, totalEbook, author
 
-        // return view('report.pdf', [
-        //     'pods' => $pods,
-        //     'ebooks' => $ebooks,
-        //     'totalPOD' => $totalPOD,
-        //     'totalEbook' => $totalEbook,
-        //     'author' => $author,
-        //     'totalRoyalties' => $totalRoyalties
-        // ]);
-        $pdf = PDF::loadView('report.pdf',[
+        return view('report.pdf', [
             'pods' => $pods,
             'ebooks' => $ebooks,
             'totalPOD' => $totalPOD,
@@ -140,9 +136,26 @@ class GeneratePdfController extends Controller
             'fromYear' => $request->fromYear,
             'fromMonth' => $request->fromMonth,
             'toYear' => $request->toYear,
-            'toMonth' => $request->toMonth
+            'toMonth' => $request->toMonth,
+            'numberFormatter' => $numberFormatter,
+            'currentDate' => $currentDate
         ]);
-        return $pdf->download('file.pdf');
+
+
+        // $pdf = PDF::loadView('report.pdf',[
+        //     'pods' => $pods,
+        //     'ebooks' => $ebooks,
+        //     'totalPOD' => $totalPOD,
+        //     'totalEbook' => $totalEbook,
+        //     'author' => $author,
+        //     'totalRoyalties' => $totalRoyalties,
+        //     'fromYear' => $request->fromYear,
+        //     'fromMonth' => $request->fromMonth,
+        //     'toYear' => $request->toYear,
+        //     'toMonth' => $request->toMonth
+        // ]);
+        // return $pdf->download('file.pdf');
+
 
     }
 }
