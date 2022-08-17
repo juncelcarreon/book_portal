@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\NumberFormatterHelper;
 use App\Helpers\UtilityHelper;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\EbookTransaction;
 use App\Models\PodTransaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use NumberFormatter;
 use PDF;
 
 class GeneratePdfController extends Controller
@@ -146,7 +149,8 @@ class GeneratePdfController extends Controller
 
 
         $totalRoyalties = number_format((float) $totalPods['royalty'] + $totalEbooks['royalty'], 2);
-
+        $numberFormatter = NumberFormatterHelper::numtowords($totalRoyalties);
+        $currentDate = Carbon::now();
 
         // return view('report.pdf', [
         //     'pods' => $pods,
@@ -170,9 +174,12 @@ class GeneratePdfController extends Controller
             'fromYear' => $request->fromYear,
             'fromMonth' => $request->fromMonth,
             'toYear' => $request->toYear,
-            'toMonth' => $request->toMonth
+            'toMonth' => $request->toMonth,
+            'numberFormatter' => $numberFormatter,
+            'currentDate' => $currentDate
         ]);
-        return $pdf->download('file.pdf');
+
+
 
     }
 }
