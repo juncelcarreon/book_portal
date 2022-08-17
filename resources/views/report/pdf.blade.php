@@ -5,6 +5,7 @@
 <style type="text/css">
     body{
         background: #ffffff;
+        font-family: 'Arial';
     }
 </style>
 
@@ -19,7 +20,7 @@
         <p>(800) 805-0762</p>
     </div> --}}
 
-    <img src="https://res.cloudinary.com/dadkdj2t7/image/upload/v1660770547/header_n3wduk.png" alt="" srcset="" style="width:100%">
+    <img src="https://res.cloudinary.com/dadkdj2t7/image/upload/v1660771247/header_m3yppc.png" alt="" srcset="" style="width:100%">
 </div>
 <div id="lower">
     {{-- <div class="title" style="text-align: center;">
