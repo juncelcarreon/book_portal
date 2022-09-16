@@ -25,7 +25,7 @@ class AuthorsImport implements ToModel, WithHeadingRow
                 'middle_initial' => $formattedName->MIDDLEINITIAL,
                 'lastname' => $formattedName->LASTNAME,
                 'suffix' => $formattedName->SUFFIX,
-                'uid' => $row['id'],
+                'uid' => $row['id'] ?? 'null',
                 'email' => $row['email_address'],
                 'contact_number' => $row['home_phone'],
                 'address' => $row['address']
