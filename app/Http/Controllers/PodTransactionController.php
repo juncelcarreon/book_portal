@@ -54,7 +54,7 @@ class PodTransactionController extends Controller
             'file' => 'required|file'
         ]);
 
-        ini_set('max_execution_time', 0);
+        ini_set('max_execution_time', -1);
 
         Excel::import(new PodTransactionsImport, $request->file('file')->store('temp'));
         // Excel::import(new PodFakesImport, $request->file('file')->store('temp'));

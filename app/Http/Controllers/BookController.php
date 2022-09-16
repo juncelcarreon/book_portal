@@ -40,7 +40,7 @@ class BookController extends Controller
         $request->validate([
             'file' => 'required|file'
         ]);
-        ini_set('max_execution_time', 0);
+        ini_set('max_execution_time', -1);
         Excel::import(new BooksImport, $request->file('file')->store('temp'));
         ini_set('max_execution_time', 60);
         return back()->with('success', 'Successfully imported data');

@@ -121,7 +121,7 @@ class EbookController extends Controller
             'file' => 'required|file'
         ]);
 
-        ini_set('max_execution_time', 0);
+        ini_set('max_execution_time', -1);
 
         Excel::import(new EbookTransactionsImport, $request->file('file')->store('temp'));
         ini_set('max_execution_time', 60);
