@@ -28,7 +28,7 @@ class PodTransactionController extends Controller
     {
         $books = Book::all();
         $pod = PodTransaction::where('book_id', $request->book_id)->paginate(10);
-        if($request->book_id == 'all'){
+        if ($request->book_id == 'all') {
             $pod = PodTransaction::orderBy('created_at', 'DESC')->paginate(10);
         }
         return view('pod.index', [
@@ -54,7 +54,7 @@ class PodTransactionController extends Controller
             'file' => 'required|file'
         ]);
 
-        ini_set('max_execution_time', 1200);
+        ini_set('max_execution_time', 0);
 
         Excel::import(new PodTransactionsImport, $request->file('file')->store('temp'));
         // Excel::import(new PodFakesImport, $request->file('file')->store('temp'));
@@ -77,7 +77,7 @@ class PodTransactionController extends Controller
         ]);
 
         $pod = PodTransaction::create([
-            'author_id' =>$request->author,
+            'author_id' => $request->author,
             'book_id' => $request->book_title,
             'year' => $request->year,
             'month' => $request->month,
@@ -95,7 +95,7 @@ class PodTransactionController extends Controller
     public function delete(PodTransaction $pod)
     {
         $pod->delete();
-       return redirect()->route('pod.index')->with('success','Transaction successfully deleted');
+        return redirect()->route('pod.index')->with('success', 'Transaction successfully deleted');
     }
 
     public function edit(PodTransaction $pod)
@@ -119,8 +119,8 @@ class PodTransactionController extends Controller
             'price' => 'required',
         ]);
 
-        $pod -> update([
-            'author_id' =>$request->author,
+        $pod->update([
+            'author_id' => $request->author,
             'book_id' => $request->book_title,
             'year' => $request->year,
             'month' => $request->month,
@@ -133,6 +133,5 @@ class PodTransactionController extends Controller
         ]);
 
         return redirect(route('pod.edit', ['pod' => $pod]))->with('success', 'Transaction successfully updated');
-
     }
 }

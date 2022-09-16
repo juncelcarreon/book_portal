@@ -22,7 +22,7 @@ class AuthorController extends Controller
     public function search(Request $request)
     {
         $author = Author::where('id', $request->author)->paginate(10);
-        if($request->author == 'all'){
+        if ($request->author == 'all') {
             return redirect(route('author.index'));
         }
         return view('author.index', [
@@ -42,7 +42,9 @@ class AuthorController extends Controller
             'file' => 'required|file'
         ]);
 
+        ini_set('max_execution_time', 0);
         Excel::import(new AuthorsImport, $request->file('file')->store('temp'));
+        ini_set('max_execution_time', 60);
         return back()->with('success', 'Successfully imported data');
     }
 
@@ -54,11 +56,11 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         /**
-        *   --- Task for Junior Dev ---
-        *   Validate the incoming request
-        *   Fields to validate { name, email, contact_number, address}
-        *   ---------------------------
-        */
+         *   --- Task for Junior Dev ---
+         *   Validate the incoming request
+         *   Fields to validate { name, email, contact_number, address}
+         *   ---------------------------
+         */
 
         $request->validate([
             'firstname' => 'required',
@@ -73,12 +75,12 @@ class AuthorController extends Controller
 
         Author::create($request->all());
 
-         /**
-          * Redirect the page to author.create
-          * Add session with value of { Author successfully added to database }
-          */
+        /**
+         * Redirect the page to author.create
+         * Add session with value of { Author successfully added to database }
+         */
 
-        return redirect(route('author.create'))->with('success','Author successfully added to database');
+        return redirect(route('author.create'))->with('success', 'Author successfully added to database');
     }
 
     public function edit(Author $author)
@@ -90,11 +92,11 @@ class AuthorController extends Controller
     public function update(Request $request, Author $author)
     {
         /**
-        *   --- Task for Junior Dev ---
-        *   Validate the incoming request
-        *   Fields to validate { name, email, contact_number, address}
-        *   ---------------------------
-        */
+         *   --- Task for Junior Dev ---
+         *   Validate the incoming request
+         *   Fields to validate { name, email, contact_number, address}
+         *   ---------------------------
+         */
 
         $request->validate([
             'firstname' => 'required',
@@ -110,14 +112,12 @@ class AuthorController extends Controller
 
         $author->update($request->all());
 
-         /**
-          * Redirect the page to author.edit
-          * Add session with value of { Author successfully updated to the database }
-          */
+        /**
+         * Redirect the page to author.edit
+         * Add session with value of { Author successfully updated to the database }
+         */
 
-        return redirect()->route('author.edit', ['author' => $author])->with('success','Author successfully updated to the database');
-
-
+        return redirect()->route('author.edit', ['author' => $author])->with('success', 'Author successfully updated to the database');
     }
 
 
@@ -130,13 +130,11 @@ class AuthorController extends Controller
 
         $author->delete();
 
-         /**
-          * Redirect to author.index
-          * Also add session with the value of { Author has been successfully deleted from the database }
-          */
+        /**
+         * Redirect to author.index
+         * Also add session with the value of { Author has been successfully deleted from the database }
+         */
 
-        return redirect()->route('author.index')->with('success','Author has been successfully deleted from the database');
-
-
+        return redirect()->route('author.index')->with('success', 'Author has been successfully deleted from the database');
     }
 }

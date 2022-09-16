@@ -26,7 +26,7 @@ class EbookController extends Controller
     {
         $books = Book::all();
         $ebook = EbookTransaction::where('book_id', $request->book_id)->paginate(10);
-        if($request->book_id == 'all'){
+        if ($request->book_id == 'all') {
             $ebook = EbookTransaction::orderBy('created_at', 'DESC')->paginate(10);
         }
         return view('ebook.index', [
@@ -121,7 +121,7 @@ class EbookController extends Controller
             'file' => 'required|file'
         ]);
 
-        ini_set('max_execution_time', 1200);
+        ini_set('max_execution_time', 0);
 
         Excel::import(new EbookTransactionsImport, $request->file('file')->store('temp'));
         ini_set('max_execution_time', 60);
