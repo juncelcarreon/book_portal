@@ -10,15 +10,15 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class AuthorsImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
-        $formattedName = (new HumanNameFormatterHelper)->parse($row['name']);
+        $formattedName = (new HumanNameFormatterHelper)->parse($row['name'] ?? $row['author']);
         $author = Author::where('firstname', $formattedName->FIRSTNAME)->where('lastname', $formattedName->LASTNAME)->get();
-        if(count($author) == 0){
+        if (count($author) == 0) {
             return new Author([
                 'title' => $formattedName->TITLE,
                 'firstname' => $formattedName->FIRSTNAME,
