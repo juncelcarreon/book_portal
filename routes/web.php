@@ -7,6 +7,7 @@ use App\Http\Controllers\EbookController;
 use App\Http\Controllers\GeneratePdfController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\PodTransactionController;
+use App\Http\Controllers\RejectedPodTransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,30 +23,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['guest'])->group(function () {
-    Route::controller(AuthenticationController::class)->group(function(){
-        Route::get('/login','index')->name('login');
+    Route::controller(AuthenticationController::class)->group(function () {
+        Route::get('/login', 'index')->name('login');
         Route::post('/login', 'authenticate')->name('authenticate');
     });
 });
 
-Route::middleware('auth')->group(function(){
-    Route::get('/home', function(){
+Route::middleware('auth')->group(function () {
+    Route::get('/home', function () {
         return redirect(route('dashboard'));
     });
 
-    Route::controller(UserController::class)->group(function(){
+    Route::controller(UserController::class)->group(function () {
         Route::get('/profile', 'index')->name('user.profile');
         Route::post('/profile', 'updateProfile')->name('user.update-profile');
         Route::get('/profile/change-password', 'editPassword')->name('user.edit-password');
         Route::post('/profile/change-password', 'updatePassword')->name('user.update-password');
     });
 
-    Route::controller(AuthenticationController::class)->group(function(){
+    Route::controller(AuthenticationController::class)->group(function () {
         Route::get('/', 'dashboard')->name('dashboard');
         Route::post('/logout', 'logout')->name('logout');
     });
 
-    Route::controller(AuthorController::class)->group(function(){
+    Route::controller(AuthorController::class)->group(function () {
         Route::get('/authors', 'index')->name('author.index');
         Route::get('/authors/search', 'search')->name('author.search');
         Route::get('/authors/import', 'importPage')->name('author.import-page');
@@ -57,10 +58,10 @@ Route::middleware('auth')->group(function(){
         Route::delete('/authors/{author}', 'delete')->name('author.delete');
     });
 
-    Route::controller(BookController::class)->group(function(){
-        Route::get('/books','index')->name('book.index');
+    Route::controller(BookController::class)->group(function () {
+        Route::get('/books', 'index')->name('book.index');
         Route::get('/books/search', 'search')->name('book.search');
-        Route::get('/books/import','importPage')->name('book.import-page');
+        Route::get('/books/import', 'importPage')->name('book.import-page');
         Route::post('/books/import', 'import')->name('book.import-bulk');
         Route::get('/books/create', 'create')->name('book.create');
         Route::get('/books/{book}', 'edit')->name('book.edit');
@@ -69,10 +70,10 @@ Route::middleware('auth')->group(function(){
         Route::delete('/books/{book}', 'delete')->name('book.delete');
     });
 
-    Route::controller(PodTransactionController::class)->prefix('pod')->group(function(){
-        Route::get('/','index')->name('pod.index');
+    Route::controller(PodTransactionController::class)->prefix('pod')->group(function () {
+        Route::get('/', 'index')->name('pod.index');
         Route::get('/search', 'search')->name('pod.search');
-        Route::get('/import','importPage')->name('pod.import-page');
+        Route::get('/import', 'importPage')->name('pod.import-page');
         Route::post('/import', 'import')->name('pod.import-bulk');
         Route::get('/create', 'create')->name('pod.create');
         Route::post('/create', 'store')->name('pod.store');
@@ -81,8 +82,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/{pod}', 'delete')->name('pod.delete');
     });
 
-    Route::controller(EbookController::class)->prefix('ebook')->group(function(){
-        Route::get('/','index')->name('ebook.index');
+    Route::controller(EbookController::class)->prefix('ebook')->group(function () {
+        Route::get('/', 'index')->name('ebook.index');
         Route::get('/search', 'search')->name('ebook.search');
         Route::get('/create', 'create')->name('ebook.create');
         Route::get('/import', 'importPage')->name('ebook.import-page');
@@ -93,15 +94,22 @@ Route::middleware('auth')->group(function(){
         Route::get('/{ebook}', 'delete')->name('ebook.delete');
     });
 
+    Route::prefix('rejecteds')->group(function () {
+        Route::controller(RejectedPodTransactionController::class)->prefix('pods')->group(function () {
+            Route::get('/', 'index')->name('rejecteds-pods.index');
+            Route::get('/{rejected_pod}/edit', 'edit')->name('rejecteds-pods.edit');
+            Route::put('/{rejected_pod}', 'update')->name('rejecteds-pods.update');
+            Route::get('/{rejected_pod}/delete', 'delete')->name('rejecteds-pods.delete');
+        });
+    });
 
-    Route::controller(GeneratePdfController::class)->prefix('generate')->group(function(){
+
+    Route::controller(GeneratePdfController::class)->prefix('generate')->group(function () {
         Route::post('/', 'generate')->name('generate.pdf');
     });
 
-    Route::controller(GenerateReportController::class)->prefix('transaction')->group(function(){
-        Route::get('/{author}','getBook')->name('transaction.get-book');
+    Route::controller(GenerateReportController::class)->prefix('transaction')->group(function () {
+        Route::get('/{author}', 'getBook')->name('transaction.get-book');
         // Route::get('/{author}/{book}', 'getYear')->name('transaction.get-year');
     });
 });
-
-

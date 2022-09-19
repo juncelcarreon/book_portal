@@ -55,10 +55,7 @@ class PodTransactionController extends Controller
         ]);
 
         ini_set('max_execution_time', -1);
-
         Excel::import(new PodTransactionsImport, $request->file('file')->store('temp'));
-        // Excel::import(new PodFakesImport, $request->file('file')->store('temp'));
-        // SavePodTransaction::dispatch();
         ini_set('max_execution_time', 60);
         return back()->with('success', 'Data successfully imported');
     }
