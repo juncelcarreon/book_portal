@@ -7,6 +7,7 @@ use App\Http\Controllers\EbookController;
 use App\Http\Controllers\GeneratePdfController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\PodTransactionController;
+use App\Http\Controllers\RejectedEbookTransactionController;
 use App\Http\Controllers\RejectedPodTransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +101,13 @@ Route::middleware('auth')->group(function () {
             Route::get('/{rejected_pod}/edit', 'edit')->name('rejecteds-pods.edit');
             Route::put('/{rejected_pod}', 'update')->name('rejecteds-pods.update');
             Route::get('/{rejected_pod}/delete', 'delete')->name('rejecteds-pods.delete');
+        });
+
+        Route::controller(RejectedEbookTransactionController::class)->prefix('ebooks')->group(function () {
+            Route::get('/', 'index')->name('rejecteds-ebooks.index');
+            Route::get('/{rejected_ebook}/edit', 'edit')->name('rejecteds-ebooks.edit');
+            Route::put('/{rejected_ebook}', 'update')->name('rejecteds-ebooks.update');
+            Route::get('/{rejected_ebook}/delete', 'delete')->name('rejecteds-ebooks.delete');
         });
     });
 

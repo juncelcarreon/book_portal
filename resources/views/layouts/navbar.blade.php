@@ -43,7 +43,7 @@
                                 <x-rejected-pod>
                                 </x-rejected-pod>
                             </a></li>
-                        <li><a class="dropdown-item d-flex gap-2" href="{{ route('ebook.index') }}">Ebook
+                        <li><a class="dropdown-item d-flex gap-2" href="{{ route('rejecteds-ebooks.index') }}">Ebook
                                 <x-rejected-ebook>
                                 </x-rejected-ebook>
                             </a></li>
