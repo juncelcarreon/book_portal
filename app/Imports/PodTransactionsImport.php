@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Str;
 
 class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts
 {
@@ -26,6 +27,7 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
 
     public function model(array $row)
     {
+        $date = now();
         if ($row['author'] != null) {
             $newName = $row['author'];
             if (str_contains($newName, ",")) {
@@ -34,19 +36,19 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
             }
             $formattedName = (new HumanNameFormatterHelper)->parse($newName);
             $author = Author::where('firstname', 'LIKE', NameHelper::normalize($formattedName->FIRSTNAME) . "%")->where('lastname', 'LIKE', NameHelper::normalize($formattedName->LASTNAME) . "%")->first();
-            $royalty = number_format((float)($row['mtd_quantity'] * $row['list_price']) * 0.15, 2);
+            $royalty = number_format((float)($row['mtd_quantity'] ?? $row['ptd_quantity'] * $row['list_price']) * 0.15, 2);
             if ($author) {
                 $book = Book::where('title', $row['title'])->first();
                 if ($book) {
                     PodTransaction::create([
                         'author_id' => $author->id,
                         'book_id' => $book->id,
-                        'year' => $row['year'],
-                        'month' => $row['mm'],
-                        'flag' => $row['flag'],
-                        'status' => $row['status'],
-                        'format' => $row['format'],
-                        'quantity' => $row['mtd_quantity'],
+                        'year' => $row['year'] ?? $date->year,
+                        'month' => $row['mm'] ?? $date->month,
+                        'flag' => $row['flag'] ?? 'No',
+                        'status' => $row['status'] ?? '',
+                        'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
+                        'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
                         'price' => $row['list_price'],
                         'royalty' => $royalty
                     ]);
