@@ -53,6 +53,12 @@
                             </option>
                             <option value="Hardback" {{ $pod->format == 'Hardback' ? 'selected' : '' }}>Hardback
                             </option>
+                            <option value="Perfectbound" {{ $pod->format == 'Perfectbound' ? 'selected' : '' }}>
+                                Perfectbound
+                            </option>
+                            <option value="Trade Cloth/Laminate"
+                                {{ $pod->format == 'Trade Cloth/Laminate' ? 'selected' : '' }}>Trade Cloth/Laminate
+                            </option>
                         </select>
 
                     </div>
