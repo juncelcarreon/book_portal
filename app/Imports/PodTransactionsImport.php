@@ -59,12 +59,12 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                     PodTransaction::create([
                         'author_id' => $author->id,
                         'book_id' => $newBook->id,
-                        'year' => $row['year'],
-                        'month' => $row['mm'],
-                        'flag' => $row['flag'],
-                        'status' => $row['status'],
-                        'format' => $row['format'],
-                        'quantity' => $row['mtd_quantity'],
+                        'year' => $row['year'] ?? $date->year,
+                        'month' => $row['mm'] ?? $date->month,
+                        'flag' => $row['flag'] ?? 'No',
+                        'status' => $row['status'] ?? '',
+                        'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
+                        'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
                         'price' => $row['list_price'],
                         'royalty' => $royalty
                     ]);
@@ -73,14 +73,14 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                 RejectedPodTransaction::create([
                     'author_name' => $row['author'],
                     'book_title' => $row['title'],
-                    'year' => $row['year'],
-                    'month' => $row['mm'],
-                    'flag' => $row['flag'],
-                    'status' => $row['status'],
-                    'format' => $row['format'],
-                    'quantity' => $row['mtd_quantity'],
-                    'price' => $row['list_price'],
-                    'royalty' => $royalty
+                        'year' => $row['year'] ?? $date->year,
+                        'month' => $row['mm'] ?? $date->month,
+                        'flag' => $row['flag'] ?? 'No',
+                        'status' => $row['status'] ?? '',
+                        'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
+                        'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
+                        'price' => $row['list_price'],
+                        'royalty' => $royalty
                 ]);
             }
         }
