@@ -39,6 +39,8 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
             $royalty = number_format((float)($row['mtd_quantity'] ?? $row['ptd_quantity'] * $row['list_price']) * 0.15, 2);
             if ($author) {
                 $book = Book::where('title', $row['title'])->first();
+                $ok = PodTransaction::where('isbn', $row['title'])->first();
+                $reject = RejectedPodTransaction::where('isbn', $row['title'])->first();
                 if ($book) {
                     PodTransaction::create([
                         'author_id' => $author->id,
@@ -72,10 +74,24 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                     ]);
                 }
             } else {
+      
                 RejectedPodTransaction::create([
                     'author_name' => $row['author'],
                     'book_title' => $row['title'],
-                    'isbn' => $row['isbn'] ?? $row['isbn'],
+                    'isbn' => $row['isbn'],
+                        'year' => $row['year'] ?? $date->year,
+                        'month' => $row['mm'] ?? $date->month,
+                        'flag' => $row['flag'] ?? 'No',
+                        'status' => $row['status'] ?? '',
+                        'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
+                        'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
+                        'price' => $row['list_price'],
+                        'royalty' => $royalty
+                ]);
+                RejectedPodTransaction::update([
+                    'author_name' => $row['author'],
+                    'book_title' => $row['title'],
+                    'isbn' => $row['isbn'],
                         'year' => $row['year'] ?? $date->year,
                         'month' => $row['mm'] ?? $date->month,
                         'flag' => $row['flag'] ?? 'No',
