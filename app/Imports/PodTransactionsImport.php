@@ -43,6 +43,7 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                     PodTransaction::create([
                         'author_id' => $author->id,
                         'book_id' => $book->id,
+                        'isbn' => $row['isbn'] ?? $row['isbn'],
                         'year' => $row['year'] ?? $date->year,
                         'month' => $row['mm'] ?? $date->month,
                         'flag' => $row['flag'] ?? 'No',
@@ -59,6 +60,7 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                     PodTransaction::create([
                         'author_id' => $author->id,
                         'book_id' => $newBook->id,
+                        'isbn' => $row['isbn'] ?? $row['isbn'],
                         'year' => $row['year'] ?? $date->year,
                         'month' => $row['mm'] ?? $date->month,
                         'flag' => $row['flag'] ?? 'No',
@@ -73,6 +75,7 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
                 RejectedPodTransaction::create([
                     'author_name' => $row['author'],
                     'book_title' => $row['title'],
+                    'isbn' => $row['isbn'] ?? $row['isbn'],
                         'year' => $row['year'] ?? $date->year,
                         'month' => $row['mm'] ?? $date->month,
                         'flag' => $row['flag'] ?? 'No',

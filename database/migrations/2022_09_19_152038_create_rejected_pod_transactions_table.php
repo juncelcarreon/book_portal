@@ -17,6 +17,7 @@ class CreateRejectedPodTransactionsTable extends Migration
             $table->id();
             $table->string('author_name');
             $table->string('book_title');
+            $table->unsignedBigInteger('isbn');
             $table->year('year');
             $table->string('month');
             $table->string('flag');
