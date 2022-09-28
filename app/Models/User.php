@@ -54,5 +54,8 @@ class User extends Authenticatable
     {
         return $this->firstname .' '. $this->lastname;
     }
-
+    public function lastName()
+    {
+        return $this->firstname;
+    }
 }
