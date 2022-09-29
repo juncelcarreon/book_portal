@@ -41,7 +41,7 @@
                             <label for="year">Year</label>
                             <select name="year" id="year" class="form-select">
                                 <option value="">Select year</option>
-                                @for ($x = $year; $x <= now()->year; $x++)
+                                @for ($x = $year->year ?? $year; $x <= now()->year; $x++)
                                     <option value="{{ $x }}">{{ $x }}</option>
                                 @endfor
                             </select>
