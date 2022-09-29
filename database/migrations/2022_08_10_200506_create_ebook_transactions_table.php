@@ -21,6 +21,8 @@ class CreateEbookTransactionsTable extends Migration
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->year('year');
             $table->string('month');
+            $table->string('class_of_trade');
+            $table->string('line_item_no');
             $table->integer('quantity');
             $table->double('price');
             $table->double('proceeds');

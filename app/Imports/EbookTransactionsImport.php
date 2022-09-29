@@ -22,12 +22,31 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        //dd($row);
         $name = $row['productauthors'];
         $name = (new HumanNameFormatterHelper)->parse($name);
-
+      
         $author = Author::where('firstname', 'LIKE', NameHelper::normalize($name->FIRSTNAME) . "%")->where('lastname', 'LIKE', NameHelper::normalize($name->LASTNAME) . "%")->first();
         $date = Carbon::parse($row['transactiondatetime']);
+       
         if ($author) {
+           
+            $et = EbookTransaction::where('line_item_no' , $row['lineitemid'])->where('month' ,$date->month)->where('year' ,$date->year)->first(); 
+            if ($et) {
+                $et->update([
+                    'author_id' => $author->id,
+                    'book_id' => $book->id,
+                    'year' => $date->year,
+                    'month' => $date->month,
+                    'class_of_trade' => $row['classoftradesale'],
+                    'line_item_no' => $row['lineitemid'],
+                    'quantity' => $row['grosssoldquantity'],
+                    'price' => $row['unitprice'],
+                    'proceeds' => $row['proceedsofsaleduepublisher'],
+                    'royalty' => $row['proceedsofsaleduepublisher'] / 2
+                ]);
+                return;
+            }
             $book = Book::where('title', $row['producttitle'])->first();
             if ($book) {
                 return new EbookTransaction([
@@ -35,6 +54,8 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                     'book_id' => $book->id,
                     'year' => $date->year,
                     'month' => $date->month,
+                    'class_of_trade' => $row['classoftradesale'],
+                    'line_item_no' => $row['lineitemid'],
                     'quantity' => $row['grosssoldquantity'],
                     'price' => $row['unitprice'],
                     'proceeds' => $row['proceedsofsaleduepublisher'],
@@ -42,11 +63,31 @@ class EbookTransactionsImport implements ToModel, WithHeadingRow
                 ]);
             }
         } else {
+            $rt = RejectedEbookTransaction::where('line_item_no' , $row['lineitemid'])->where('month' ,$date->month)->where('year' ,$date->year)->first(); 
+            if($rt){
+                $rt->update([
+                    'author_name' => $row['productauthors'],
+                    'book_title' => $row['producttitle'],
+                    'year' => $date->year,
+                    'month' => $date->month,
+                    'class_of_trade' => $row['classoftradesale'],
+                    'line_item_no' => $row['lineitemid'],
+                    'quantity' => $row['grosssoldquantity'],
+                    'price' => $row['unitprice'],
+                    'proceeds' => $row['proceedsofsaleduepublisher'],
+                    'royalty' => $row['proceedsofsaleduepublisher'] / 2
+                ]);
+                return;
+                
+            }
+          
             RejectedEbookTransaction::create([
                 'author_name' => $row['productauthors'],
                 'book_title' => $row['producttitle'],
                 'year' => $date->year,
                 'month' => $date->month,
+                'class_of_trade' => $row['classoftradesale'],
+                'line_item_no' => $row['lineitemid'],
                 'quantity' => $row['grosssoldquantity'],
                 'price' => $row['unitprice'],
                 'proceeds' => $row['proceedsofsaleduepublisher'],

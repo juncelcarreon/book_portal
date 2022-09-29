@@ -14,6 +14,8 @@ class EbookTransaction extends Model
         'book_id',
         'year',
         'month',
+        'class_of_trade',
+        'line_item_no',
         'quantity',
         'price',
         'proceeds',
