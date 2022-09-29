@@ -25,6 +25,7 @@ class PodTransactionImportService
             $newName = $newName[1] . " " . $newName[0];
         }
 
+
         $formattedName = (new HumanNameFormatterHelper)->parse($newName);
 
         $author = Author::where('firstname', 'LIKE', NameHelper::normalize($formattedName->FIRSTNAME) . "%")->where('lastname', 'LIKE', NameHelper::normalize($formattedName->LASTNAME) . "%")->first();
