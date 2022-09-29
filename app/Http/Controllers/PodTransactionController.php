@@ -45,17 +45,22 @@ class PodTransactionController extends Controller
 
     public function importPage()
     {
-        return view('pod.import');
+        return view('pod.import', [
+            'months' => MonthHelper::getMonths(),
+            'year' => PodTransaction::select('year')->orderBy('year', 'desc')->first() ?? now()->year
+        ]);
     }
 
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|file'
+            'file' => 'required|file',
+            'year' => 'required',
+            'month' => 'required'
         ]);
 
         ini_set('max_execution_time', -1);
-        Excel::import(new PodTransactionsImport, $request->file('file')->store('temp'));
+        Excel::import(new PodTransactionsImport($request->year, $request->month), $request->file('file')->store('temp'));
         ini_set('max_execution_time', 60);
         return back()->with('success', 'Data successfully imported');
     }

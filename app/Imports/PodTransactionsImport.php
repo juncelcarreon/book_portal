@@ -10,6 +10,7 @@ use App\Models\Book;
 use App\Models\PodTransaction;
 use App\Models\RejectedAuthor;
 use App\Models\RejectedPodTransaction;
+use App\Services\PodTransactionImportService;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -25,67 +26,21 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
      * @return \Illuminate\Database\Eloquent\Model|null
      */
 
+    private $year, $month;
+
+    public function __construct($year, $month)
+    {
+        $this->year = $year;
+        $this->month = $month;
+    }
+
     public function model(array $row)
     {
-        $date = now();
-        if ($row['author'] != null) {
-            $newName = $row['author'];
-            if (str_contains($newName, ",")) {
-                $newName = explode(", ", $row['author']);
-                $newName = $newName[1] . " " . $newName[0];
-            }
-            $formattedName = (new HumanNameFormatterHelper)->parse($newName);
-            $author = Author::where('firstname', 'LIKE', NameHelper::normalize($formattedName->FIRSTNAME) . "%")->where('lastname', 'LIKE', NameHelper::normalize($formattedName->LASTNAME) . "%")->first();
-            $royalty = number_format((float)($row['mtd_quantity'] ?? $row['ptd_quantity'] * $row['list_price']) * 0.15, 2);
-            if ($author) {
-                $book = Book::where('title', $row['title'])->first();
-                if ($book) {
-                    PodTransaction::create([
-                        'author_id' => $author->id,
-                        'book_id' => $book->id,
-                        'isbn' => $row['isbn'] ?? $row['isbn'],
-                        'year' => $row['year'] ?? $date->year,
-                        'month' => $row['mm'] ?? $date->month,
-                        'flag' => $row['flag'] ?? 'No',
-                        'status' => $row['status'] ?? '',
-                        'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
-                        'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
-                        'price' => $row['list_price'],
-                        'royalty' => $royalty
-                    ]);
-                } else {
-                    $newBook = Book::create([
-                        'title' => $row['book'] ?? $row['title']
-                    ]);
-                    PodTransaction::create([
-                        'author_id' => $author->id,
-                        'book_id' => $newBook->id,
-                        'isbn' => $row['isbn'] ?? $row['isbn'],
-                        'year' => $row['year'] ?? $date->year,
-                        'month' => $row['mm'] ?? $date->month,
-                        'flag' => $row['flag'] ?? 'No',
-                        'status' => $row['status'] ?? '',
-                        'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
-                        'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
-                        'price' => $row['list_price'],
-                        'royalty' => $royalty
-                    ]);
-                }
-            } else {
-                RejectedPodTransaction::create([
-                    'author_name' => $row['author'],
-                    'book_title' => $row['title'],
-                    'isbn' => $row['isbn'] ?? $row['isbn'],
-                        'year' => $row['year'] ?? $date->year,
-                        'month' => $row['mm'] ?? $date->month,
-                        'flag' => $row['flag'] ?? 'No',
-                        'status' => $row['status'] ?? '',
-                        'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
-                        'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],
-                        'price' => $row['list_price'],
-                        'royalty' => $royalty
-                ]);
-            }
+        $response = (new PodTransactionImportService)->store($row, $this->year, $this->month);
+
+        // if response value is false trigger this
+        if (!$response) {
+            (new PodTransactionImportService)->reject($row, $this->year, $this->month);
         }
     }
 

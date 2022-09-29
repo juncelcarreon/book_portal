@@ -4,8 +4,9 @@
     <div class="container">
         <div class="row justify-content-center align-content-center mt-5">
             <div class="col-md-5">
-                <form action="{{route('pod.import-bulk')}}" method="post" class="card p-4 shadow" enctype="multipart/form-data">
-                    <a href="{{ route('pod.index')}}" class="ms-auto text-decoration-none text-secondary">
+                <form action="{{ route('pod.import-bulk') }}" method="post" class="card p-4 shadow"
+                    enctype="multipart/form-data">
+                    <a href="{{ route('pod.index') }}" class="ms-auto text-decoration-none text-secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-x" viewBox="0 0 16 16">
                             <path
@@ -14,20 +15,40 @@
                     </a>
                     <h5 class="text-center">Import File</h5>
                     @if (Session::has('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <span>{{Session::get('success')}}</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                      </div>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <span>{{ Session::get('success') }}</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     @endif
                     @csrf
                     <div class="form-group my-2">
                         <label for="email">Excel File</label>
                         <input type="file" name="file" id="file" class="form-control">
                         @error('file')
-                            <small class="text-danger">{{$message}}</small>
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                    <div class="form-group my-1">
+                    <div class="row justify-content-center">
+                        <div class="col form-group">
+                            <label for="month">Month</label>
+                            <select name="month" id="month" class="form-select">
+                                @foreach ($months as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col form-group">
+                            <label for="year">Year</label>
+                            <select name="year" id="year" class="form-select">
+                                <option value="">Select year</option>
+                                @for ($x = $year; $x <= now()->year; $x++)
+                                    <option value="{{ $x }}">{{ $x }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group my-2 ">
                         <button type="submit" class="btn btn-primary">Import</button>
                     </div>
                 </form>
