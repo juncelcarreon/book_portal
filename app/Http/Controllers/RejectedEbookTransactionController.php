@@ -40,6 +40,8 @@ class RejectedEbookTransactionController extends Controller
         $request->validate([
             'author' => 'required',
             'book' => 'required',
+            'class_of_trade' => 'required',
+            'line_item_no' => 'required',
             'year' => 'required',
             'month' => 'required',
             'quantity' => 'required',
@@ -58,6 +60,8 @@ class RejectedEbookTransactionController extends Controller
         EbookTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
+            'class_of_trade' => $request->class_of_trade,
+            'line_item_no' => $request->line_item_no,
             'year' => $request->year,
             'month' => $request->month,
             'flag' => $request->flag,

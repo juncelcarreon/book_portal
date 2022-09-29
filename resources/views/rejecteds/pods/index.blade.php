@@ -3,6 +3,12 @@
 @section('content')
     <div class="container ">
         <div class="p-3 my-3 w-100 ">
+            <form action="" method="get">
+                <div class="d-flex gap-2" style="width: 30%">
+                    <input type="text" name="filter" id="filter" class="form-control">
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
+                </div>
+            </form>
             <div class="bg-light p-2 shadow rounded">
                 <h5 class="text-center my-3">Rejected POD Transactions</h5>
                 <table class="table table-bordered table-hover mt-2">

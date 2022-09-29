@@ -20,6 +20,11 @@
                         <label>Book</label>
                         <textarea id="book_title" cols="10" rows="3" class="form-control" disabled>{{ $pod->book_title }}</textarea>
                     </div>
+                    <div class="form-group my-1">
+                        <label>ISBN</label>
+                        <input type="text" class="form-control" id="pod_year" value="{{ $pod->isbn }}" disabled>
+
+                    </div>
 
                     <div class="form-group my-1">
                         <label>Year</label>
@@ -92,13 +97,18 @@
                         <textarea id="book" name="book" cols="10" rows="3" class="form-control">{{ $pod->book_title }}
                         </textarea>
                     </div>
-
+                    <div class="form-group my-1">
+                        <label for="isbn">ISBN</label>
+                        <input type="text" class="form-control" name="isbn" id="isbn"
+                            value="{{ old('isbn') ?? $pod->isbn }}">
+                    </div>
                     <div class="form-group my-1">
                         <label for="year">Year</label>
                         <input type="text" class="form-control" name="year" id="year"
                             value="{{ old('year') ?? $pod->year }}">
 
                     </div>
+
                     <div class="form-group my-2">
                         <label for="month">Month</label>
                         <select name="month" id="month" class="form-select">

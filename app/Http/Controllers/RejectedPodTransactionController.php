@@ -12,11 +12,16 @@ use Illuminate\Http\Request;
 
 class RejectedPodTransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $books = Book::all();
+        $pods = RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10);
+
+        if ($request->filter) {
+            $pods = RejectedPodTransaction::where('author_name', 'LIKE', "%$request->filter%")->orWhere('book_title', 'LIKE', "%$request->filter%")->orWhere('isbn', $request->filter)->paginate(10);
+        }
         return view('rejecteds.pods.index', [
-            'pods' => RejectedPodTransaction::orderBy('created_at', 'DESC')->paginate(10)
+            'pods' => $pods
         ], compact('books'));
     }
 
@@ -61,6 +66,7 @@ class RejectedPodTransactionController extends Controller
         PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
+            'isbn' => $request->isbn,
             'year' => $request->year,
             'month' => $request->month,
             'flag' => $request->flag,

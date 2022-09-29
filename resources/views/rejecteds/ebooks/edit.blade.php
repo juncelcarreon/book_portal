@@ -21,6 +21,18 @@
                         <textarea id="book_title" cols="10" rows="3" class="form-control" disabled>{{ $ebook->book_title }}</textarea>
                     </div>
 
+                    <div class="form-group">
+                        <label>Class of Trade</label>
+                        <input type="text" id="class_of_trade" cols="10" rows="3" class="form-control"
+                            value="{{ $ebook->class_of_trade }}" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Line Item Number</label>
+                        <input type="text" id="line_item_no" cols="10" rows="3" class="form-control"
+                            value="{{ $ebook->line_item_no }}" disabled>
+                    </div>
+
                     <div class="form-group my-1">
                         <label>Year</label>
                         <input type="text" class="form-control" id="ebook_year" value="{{ $ebook->year }}" disabled>
@@ -65,6 +77,19 @@
                         <textarea id="book" name="book" cols="10" rows="3" class="form-control">{{ $ebook->book_title }}
                         </textarea>
                     </div>
+
+                    <div class="form-group">
+                        <label>Class of Trade</label>
+                        <input type="text" id="class_of_trade" cols="10" rows="3" class="form-control"
+                            value="{{ old('class_of_trade') ?? $ebook->class_of_trade }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Line Item Number</label>
+                        <input type="text" id="line_item_no" cols="10" rows="3" class="form-control"
+                            value="{{ old('line_item_no') ?? $ebook->line_item_no }}">
+                    </div>
+
 
                     <div class="form-group my-1">
                         <label for="year">Year</label>

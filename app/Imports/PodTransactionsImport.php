@@ -36,12 +36,14 @@ class PodTransactionsImport implements ToModel, WithHeadingRow, WithChunkReading
 
     public function model(array $row)
     {
-        $podTransactionService = new PodTransactionImportService();
-        $response = $podTransactionService->store($row, $this->year, $this->month);
+        if ($row['author'] != null) {
+            $podTransactionService = new PodTransactionImportService();
+            $response = $podTransactionService->store($row, $this->year, $this->month);
 
-        // if response value is false trigger this
-        if (!$response) {
-            $podTransactionService->reject($row, $this->year, $this->month);
+            // if response value is false trigger this
+            if (!$response) {
+                $podTransactionService->reject($row, $this->year, $this->month);
+            }
         }
     }
 
