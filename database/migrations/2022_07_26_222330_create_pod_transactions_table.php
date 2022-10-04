@@ -20,6 +20,7 @@ class CreatePodTransactionsTable extends Migration
             $table->unsignedBigInteger('book_id');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->string('isbn');
+            $table->string('market');
             $table->year('year');
             $table->string('month');
             $table->string('flag');
