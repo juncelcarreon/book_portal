@@ -57,7 +57,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('user.profile') }}"> {{ auth()->user()->getFullName() }}</a> </li>
-                        <li><a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a></li>
+                       
                         <li><a class="dropdown-item" href="{{ route('user.edit-password') }}">Change Password</a></li>
                         <li>
                             <hr class="dropdown-divider">

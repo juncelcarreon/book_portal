@@ -13,6 +13,7 @@ class RejectedPodTransaction extends Model
         'author_name',
         'book_title',
         'isbn',
+        'market',
         'year',
         'month',
         'flag',

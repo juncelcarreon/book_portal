@@ -13,6 +13,7 @@ class PodTransaction extends Model
         'author_id',
         'book_id',
         'isbn',
+        'market',
         'year',
         'month',
         'flag',
