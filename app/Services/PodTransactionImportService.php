@@ -43,13 +43,16 @@ class PodTransactionImportService
             ]);
         }
 
-        $transaction = PodTransaction::where('isbn', $row['isbn'])->where('year', $year)->where('month', $month)->first();
+        $transaction = PodTransaction::where('isbn', $row['isbn'])->where('year', $year)->where('month', $month)->where('market', $row['market'])->first();
+
+
 
         if ($transaction) {
             $transaction->update([
                 'author_id' => $author->id,
                 'book_id' => $book->id,
                 'isbn' => $row['isbn'],
+                'market' => $row['market'],
                 'year' => $row['year'] ?? $year,
                 'month' => $row['mm'] ?? $month,
                 'flag' => $row['flag'] ?? 'No',
@@ -68,6 +71,7 @@ class PodTransactionImportService
             'author_id' => $author->id,
             'book_id' => $book->id,
             'isbn' => $row['isbn'],
+            'market' => $row['market'],
             'year' => $row['year'] ?? $year,
             'month' => $row['mm'] ?? $month,
             'flag' => $row['flag'] ?? 'No',
@@ -84,13 +88,14 @@ class PodTransactionImportService
 
     public function reject(array $row, $year, $month)
     {
-        $rejectTransaction = RejectedPodTransaction::where('isbn', $row['isbn'])->where('year', $year)->where('month', $month)->first();
+        $rejectTransaction = RejectedPodTransaction::where('isbn', $row['isbn'])->where('year', $year)->where('month', $month)->where('market', $row['market'])->first();
 
         if ($rejectTransaction) {
             $rejectTransaction->update([
                 'author_name' => $row['author'],
                 'book_title' => $row['title'],
                 'isbn' => $row['isbn'] ?? $row['isbn'],
+                'market' => $row['market'] ?? $row['market'],
                 'year' => $row['year'] ?? $year,
                 'month' => $row['mm'] ?? $month,
                 'flag' => $row['flag'] ?? 'No',
@@ -109,6 +114,7 @@ class PodTransactionImportService
             'author_name' => $row['author'],
             'book_title' => $row['title'],
             'isbn' => $row['isbn'] ?? $row['isbn'],
+            'market' => $row['market'] ?? $row['market'],
             'year' => $row['year'] ?? $year,
             'month' => $row['mm'] ?? $month,
             'flag' => $row['flag'] ?? 'No',
