@@ -3,6 +3,9 @@
 @section('content')
     <div class="container ">
         <div class="p-3 my-3 w-100 ">
+        <a href="{{ route('all-rejecteds-ebooks.clear') }}"
+                                            onclick="return confirm('Are you sure you want to Clear file?')"
+                                            class="btn btn-danger"> Clear All</a>
             <div class="bg-light p-2 shadow rounded">
                 <h5 class="text-center my-3">Rejected eBook Transactions</h5>
                 <table class="table table-bordered table-hover mt-2">

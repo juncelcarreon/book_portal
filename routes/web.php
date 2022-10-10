@@ -110,6 +110,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/{rejected_ebook}/edit', 'edit')->name('rejecteds-ebooks.edit');
             Route::put('/{rejected_ebook}', 'update')->name('rejecteds-ebooks.update');
             Route::get('/{rejected_ebook}/delete', 'delete')->name('rejecteds-ebooks.delete');
+            Route::get('/delete', 'clear')->name('all-rejecteds-ebooks.clear');
         });
     });
 

@@ -34,7 +34,10 @@ class RejectedEbookTransactionController extends Controller
             ->with('authors', $authors)
             ->with('months', $months);
     }
-
+    public function clear(){
+        RejectedEbookTransaction::truncate();
+        return back();
+    }
     public function update(Request $request, RejectedEbookTransaction $rejected_ebook)
     {
         $request->validate([
