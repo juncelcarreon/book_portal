@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-center align-content-center mt-5">
             <div class="col-md-5">
-                <form action="{{route('generate.pdf')}}" method="post" class="card p-4 shadow">
+                <form action="{{route('generate.pdf')}}" method="POST" class="card p-4 shadow">
                     <h5 class="text-center">Generate PDF</h5>
                     @csrf
                     <div class="form-group my-1">
@@ -78,11 +78,18 @@
                             @error('toMonth')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
+                            <label for="chooseType">Choose Action</label>
+                            <select name="actiontype" class="form-select">
+                              <option value="" disabled selected>Select one</option>
+                                <option value="print" >Print</option>
+                                <option value="show" >Preview</option>
+                            </select>
+
                         </div>
                     </div>
-             
+
                     <div class="form-group my-1">
-                        <button type="submit" class="btn btn-primary">Generate PDF</button>
+                        <button type="submit" class="btn btn-primary">Proceed</button>
                     </div>
                 </form>
             </div>
@@ -102,21 +109,17 @@
         //    minViewMode: "years",
         //    autoclose:true
         // });
-
         $('.select2').select2();
-
         // Id of dropdown
         $('#author').change(async() => {
             //get the #book element (dropdown)
             let element = document.getElementById('book')
             //remove existing data in dropdown (#book)
             removeOptions(element)
-
             let fromYear = document.getElementById('fromYear')
             let toYear = document.getElementById('toYear')
             removeOptions(fromYear)
             removeOptions(toYear)
-
             //fetch data from the server base on user id
             const response = await fetch('/transaction/' + $('#author').val());
             //convert response to json
@@ -126,14 +129,11 @@
             createOptions(fromYear, data.dates, 'year')
             createOptions(toYear, data.dates, 'year')
         });
-
         // $('#book').change(async() => {
         //     let fromYear = document.getElementById('fromYear')
         //     let toYear = document.getElementById('toYear')
-
         //     removeOptions(fromYear)
         //     removeOptions(toYear)
-
         //     try{
         //         const response = await fetch('/transaction/'+$('#author').val() +'/'+$('#book').val());
         //         let data = await response.json();
@@ -143,13 +143,11 @@
         //         console.log($ex);
         //     }
         // });
-
         const removeOptions = (element) => {
             while(element.length > 1){
                 element.remove(element.length - 1)
             }
         }
-
         const createOptions = (element, items, type) => {
             if(items.length > 0){
                 // if(type != 'year'){
@@ -158,7 +156,6 @@
                 //         allOpt.innerText = 'All'
                 //     element.append(allOpt)
                 // }
-
                 items.forEach((item) => {
                     var opt = document.createElement('option')
                     if(type === 'book'){
