@@ -31,6 +31,10 @@ class RejectedPodTransactionController extends Controller
         $rejected_pod->delete();
         return back();
     }
+    public function clear(){
+        RejectedPodTransaction::truncate();
+        return back();
+    }
 
     public function edit(RejectedPodTransaction $rejected_pod)
     {

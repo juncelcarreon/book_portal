@@ -102,6 +102,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/{rejected_pod}/edit', 'edit')->name('rejecteds-pods.edit');
             Route::put('/{rejected_pod}', 'update')->name('rejecteds-pods.update');
             Route::get('/{rejected_pod}/delete', 'delete')->name('rejecteds-pods.delete');
+            Route::get('/delete', 'clear')->name('all-rejecteds-pods.clear');
         });
 
         Route::controller(RejectedEbookTransactionController::class)->prefix('ebooks')->group(function () {

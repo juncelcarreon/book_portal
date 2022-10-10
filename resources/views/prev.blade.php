@@ -6,30 +6,30 @@
             <div class="d-flex">
            <div class="details" style="margin-top: 30px;">
         <span>{{$currentDate}}</span>
-        <h6 class="mt-4" style="font-size: 15px;"><b>{{$author->getFullName()}}</b></h6>
+        <h6 class="mt-4" style="font-size: 15px;"></h6>
         <span style="font-size: 15px;">{{$author->address}}</span>
     </div>
     <div class="details" style="margin-top: 30px;">
-        <span style="font-size: 15px; mb-5;">Dear {{$author->firstname}},</span>
+        <span style="font-size: 15px; mb-5;">Authors Name: <b>{{$author->getFullName()}}</b>,</span>
         <br><br>
         <span style="font-size: 15px;">Enclosed is the royalty payment amounting to <strong>${{$totalRoyalties}}</strong> ({{$numberFormatter}}).</span>
         <br>
         <span  style="font-size: 15px;">Royalty statement details below:</span>
     </div>
 
-    <div class="transaction" style="margin-top: 30px;">
+    <div class="bg-light p-2 shadow rounded">
         <span>Statement Period: <b>{{App\Helpers\MonthHelper::getStringMonth($fromMonth)}} {{$fromYear}}</b> to <b>{{App\Helpers\MonthHelper::getStringMonth($toMonth)}} {{$toYear}}</b></span>
         @if(count($pods) > 0)
-        <table style="width:100%;font-size: 14px;">
-            <thead style="background-color: #e3edf3;border: 1px solid;font-size: 12px;">
-                <tr style="text-align:center;">
-                    <th style="border: 1px solid;">Book Title</th>
-                    <th style="border: 1px solid;">Format</th>
-                    <th style="border: 1px solid;">Month</th>
-                    <th style="border: 1px solid;">Year</th>
-                    <th style="border: 1px solid;">Copies Sold</th>
-                    <th style="border: 1px solid;">Retail Price</th>
-                    <th style="border: 1px solid;">15% Royalty</th>
+        <table class="table table-bordered table-hover mt-2">
+        <thead>
+                 <tr class="text-center">
+                    <th> Book Title</th>
+                    <th>Format</th>
+                    <th >Month</th>
+                    <th>Year</th>
+                    <th>Copies Sold</th>
+                    <th>Retail Price</th>
+                    <th>15% Royalty</th>
                 </tr>
             </thead>
             <tbody style="">
@@ -108,8 +108,7 @@
     @endif
     <h5 class="mt-4 my-4" style="font-size: 15px;">Total Royalties accrued as of this period: ${{$totalRoyalties}}</h5>
 
-    <span style="font-size: 15px;">Sincerely,</span>
-    <h5 style="font-size: 15px;"><b>ReadersMagnet Team</b></h5>
+    
 </div>
 
           

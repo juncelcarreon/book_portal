@@ -9,6 +9,9 @@
                     <button type="submit" class="btn btn-outline-primary">Search</button>
                 </div>
             </form>
+            <a href="{{ route('all-rejecteds-pods.clear') }}"
+                                            onclick="return confirm('Are you sure you want to Clear file?')"
+                                            class="btn btn-danger"> Clear All</a>
             <div class="bg-light p-2 shadow rounded">
                 <h5 class="text-center my-3">Rejected POD Transactions</h5>
                 <table class="table table-bordered table-hover mt-2">
