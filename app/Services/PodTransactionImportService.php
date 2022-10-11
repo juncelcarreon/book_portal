@@ -55,7 +55,7 @@ class PodTransactionImportService
                 'market' => $row['market'],
                 'year' => $row['year'] ?? $year,
                 'month' => $row['mm'] ?? $month,
-                'flag' => $row['flag'] ?? 'No',
+                'flag' => $row['flag'] ?? 'Yes',
                 'status' => $row['status'] ?? '',
                 'format' => $row['format'] ?? Str::contains($row['binding_type'], Str::title('perfectbound')) == true ? 'Perfectbound' : Str::title($row['binding_type']),
                 'quantity' => $row['mtd_quantity'] ?? $row['ptd_quantity'],

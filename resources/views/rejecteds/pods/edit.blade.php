@@ -23,7 +23,7 @@
                     <div class="form-group my-1">
                         <label>ISBN</label>
                         <input type="text" class="form-control" id="pod_year" value="{{ $pod->isbn }}" disabled>
-
+                        <input type="hidden" name='market' class="form-control" id="pod_year" value="{{ $pod->market }}" disabled>
                     </div>
 
                     <div class="form-group my-1">
@@ -101,6 +101,11 @@
                         <label for="isbn">ISBN</label>
                         <input type="text" class="form-control" name="isbn" id="isbn"
                             value="{{ old('isbn') ?? $pod->isbn }}">
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="market">Market</label>
+                        <input type="text" class="form-control" name="market" id="isbn"
+                            value="{{ old('market') ?? $pod->market }}">
                     </div>
                     <div class="form-group my-1">
                         <label for="year">Year</label>
