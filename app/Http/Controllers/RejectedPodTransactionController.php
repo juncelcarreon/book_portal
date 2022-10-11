@@ -52,6 +52,7 @@ class RejectedPodTransactionController extends Controller
             'author' => 'required',
             'book' => 'required',
             'year' => 'required',
+            'market'=> 'required',
             'month' => 'required',
             'flag' => 'required',
             'format' => 'required',
@@ -67,10 +68,12 @@ class RejectedPodTransactionController extends Controller
             ]);
         }
 
+       
         PodTransaction::create([
             'author_id' => $request->author,
             'book_id' => $book->id,
             'isbn' => $request->isbn,
+            'market' => $request->market,
             'year' => $request->year,
             'month' => $request->month,
             'flag' => $request->flag,
@@ -82,6 +85,8 @@ class RejectedPodTransactionController extends Controller
 
         $rejected_pod->delete();
 
-        return redirect(route('rejecteds-pods.index'));
+        
+       
+       return redirect(route('rejecteds-pods.index'));
     }
 }
