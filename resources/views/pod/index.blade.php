@@ -4,6 +4,7 @@
     <div class="container ">
         <div class="p-3 my-3 w-100 ">
             <div class="d-flex">
+            
                 <form action="{{ route('pod.search') }}" method="get" class="d-flex gap-2">
                     <div class="form-group my-2">
                         <select name="book_id" id="book_id" class="form-control select2 w-50">
@@ -25,6 +26,7 @@
                         </button>
                     </div>
                 </form>
+                
                 <div class="ms-auto">
                     <a href="{{ route('pod.import-page') }}" class="btn btn-outline-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -43,6 +45,9 @@
                       </svg>
                     Add Transaction
                 </a> --}}
+                <a href="{{ route('pod.clear') }}"
+                                            onclick="return confirm('Are you sure you want to DELETE ALL POD?')"
+                                            class="btn btn-danger" width="16" height="16"> Clear All</a>
                 </div>
             </div>
             <div class="bg-light p-2 shadow rounded">
