@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{pod}/edit', 'edit')->name('pod.edit');
         Route::put('/{pod}', 'update')->name('pod.update');
         Route::get('/{pod}', 'delete')->name('pod.delete');
+        Route::delete('/deleteAll', 'clear')->name('pod.clear');
     });
 
     Route::controller(EbookController::class)->prefix('ebook')->group(function () {
