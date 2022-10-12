@@ -33,7 +33,10 @@ class EbookController extends Controller
             'ebook_transactions' => $ebook, 'books' => $books
         ]);
     }
-
+    public function clear(){
+        EbookTransaction::truncate();
+        return back();
+    }
     public function create()
     {
         $months = MonthHelper::getMonths();
