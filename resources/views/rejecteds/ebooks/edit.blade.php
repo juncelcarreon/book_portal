@@ -58,6 +58,7 @@
                     <div class="form-group my-1">
                         <label>Proceeds of Sale Due Publisher</label>
                         <input type="number" id="price" class="form-control" value="{{ $ebook->proceeds }}" disabled>
+                        <input type="number" id="royalty" class="form-control" value="{{ $ebook->royalty }}" disabled>
                     </div>
                 </div>
 
@@ -132,6 +133,14 @@
                         <input type="number" name="proceeds" id="proceeds" class="form-control"
                             value="{{ old('proceeds') ?? $ebook->proceeds }}">
                         @error('proceeds')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-1">
+                        <label for="price">royalty</label>
+                        <input type="number" name="royalty" id="price" class="form-control"
+                            value="{{ old('royalty') ?? $ebook->royalty }}">
+                        @error('royalty')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
