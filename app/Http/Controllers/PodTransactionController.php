@@ -23,7 +23,7 @@ class PodTransactionController extends Controller
             'pod_transactions' => PodTransaction::orderBy('created_at', 'DESC')->paginate(10)
         ], compact('books'));
     }
-
+    
     public function search(Request $request)
     {
         $books = Book::all();
@@ -34,6 +34,10 @@ class PodTransactionController extends Controller
         return view('pod.index', [
             'pod_transactions' => $pod, 'books' => $books
         ]);
+    }
+    public function clear(){
+       PodTransaction::getQuery()->delete();
+        return back();
     }
     public function create()
     {
