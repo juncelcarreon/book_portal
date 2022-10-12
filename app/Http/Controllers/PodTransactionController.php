@@ -36,8 +36,8 @@ class PodTransactionController extends Controller
         ]);
     }
     public function clear(){
-       PodTransaction::getQuery()->delete();
-        return back();
+       PodTransaction::truncate();
+       return back();
     }
     public function create()
     {

@@ -82,7 +82,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{pod}/edit', 'edit')->name('pod.edit');
         Route::put('/{pod}', 'update')->name('pod.update');
         Route::get('/{pod}', 'delete')->name('pod.delete');
-        Route::delete('/deleteAll', 'clear')->name('pod.clear');
+        Route::get('/delete/all', 'clear')->name('pod.clear');
     });
 
     Route::controller(EbookController::class)->prefix('ebook')->group(function () {
@@ -95,6 +95,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{ebook}/edit', 'edit')->name('ebook.edit');
         Route::put('/{ebook}', 'update')->name('ebook.update');
         Route::get('/{ebook}', 'delete')->name('ebook.delete');
+        Route::get('/delete/all', 'clear')->name('ebook.clear');
     });
 
     Route::prefix('rejecteds')->group(function () {
