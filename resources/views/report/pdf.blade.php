@@ -51,6 +51,7 @@
                     <th style="border: 1px solid;">Year</th>
                     <th style="border: 1px solid;">Copies Sold</th>
                     <th style="border: 1px solid;">Retail Price</th>
+                    <th style="border: 1px solid;">Gross Revenue</th>
                     <th style="border: 1px solid;">15% Royalty</th>
                 </tr>
             </thead>

@@ -29,6 +29,7 @@
                     <th>Year</th>
                     <th>Copies Sold</th>
                     <th>Retail Price</th>
+                    <th>Gross Revenue</th>
                     <th>15% Royalty</th>
                 </tr>
             </thead>
