@@ -29,6 +29,7 @@
                     <th>Year</th>
                     <th>Copies Sold</th>
                     <th>Retail Price</th>
+                    <th>Gross Revenue</th>
                     <th>15% Royalty</th>
                 </tr>
             </thead>
@@ -39,6 +40,7 @@
                             <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$pod['title']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['price']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['royalty']}}</b></td>
                         </tr>
                     @else
@@ -49,6 +51,7 @@
                             <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['year']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['royalty']}}</td>
                         </tr>
                     @endif
@@ -56,6 +59,7 @@
                 <tr>
                     <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$totalPods['title']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['royalty']}}</b></td>
                 </tr>

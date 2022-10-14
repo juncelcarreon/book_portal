@@ -51,6 +51,7 @@
                     <th style="border: 1px solid;">Year</th>
                     <th style="border: 1px solid;">Copies Sold</th>
                     <th style="border: 1px solid;">Retail Price</th>
+                    <th style="border: 1px solid;">Gross Revenue</th>
                     <th style="border: 1px solid;">15% Royalty</th>
                 </tr>
             </thead>
@@ -61,6 +62,7 @@
                             <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$pod['title']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['price']}}</b></td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['royalty']}}</b></td>
                         </tr>
                     @else
@@ -71,13 +73,16 @@
                             <td style="border: 1px solid; width:50px; text-align:center;">{{$pod['year']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['quantity']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['price']}}</td>
+                            <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
                             <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['royalty']}}</td>
                         </tr>
                     @endif
                 @endforeach
                 <tr>
-                    <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$totalPods['title']}}</b></td>
+                <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$totalPods['title']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
+
+                    <td style="border: 1px solid; width:70px; text-align:center;"></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['royalty']}}</b></td>
                 </tr>
@@ -105,6 +110,7 @@
                         <td colspan="3" style="border: 1px solid; width:90px; "><b>{{$ebook['title']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['quantity']}}</b></td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['price']}}</b></td>
+                        <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
                         <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$ebook['royalty']}}</b></td>
                     </tr>
                     @else
