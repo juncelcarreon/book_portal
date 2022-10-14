@@ -218,21 +218,23 @@ class GeneratePdfController extends Controller
                             foreach($months as $month){
                                 $podFirst = $podTransactions->where('year', $year)->where('month', $month)->first();
                                 if($podFirst){
-                                    if($podFirst->format == 'Hardback'){
+                                    
                                         $quantity = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Hardback')->sum('quantity');
+                                        $revenue = number_format((float)$podTransactions->where('year', $year)->where('month', $month)->where('format', 'Hardback')->sum('price'), 2);
                                         $royalty = number_format((float)$podTransactions->where('year', $year)->where('month', $month)->where('format', 'Hardback')->sum('royalty'), 2);
                                         $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' => $quantity, 'price' => $podFirst->price, 'royalty' => $royalty]);
-                                    }else{
+                                   
                                         $quantity = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Paperback')->sum('quantity');
                                         $royalty = number_format((float)$podTransactions->where('year', $year)->where('month', $month)->where('format', 'Paperback')->sum('royalty'), 2);
                                         $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $quantity, 'price' => $podFirst->price, 'royalty' => $royalty]);
-                                    }
+                                    
                                 }
                             }
                         }
                         $pods->push([
                             'title' => $podTransactions[0]->book->title . " Total",
                             'quantity' => $podTransactions->sum('quantity'),
+                           
                             'royalty' => number_format((float)$podTransactions->sum('royalty'), 2),
                             'price' => $podTransactions[0]->price
                         ]);
