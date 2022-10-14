@@ -220,14 +220,15 @@ class GeneratePdfController extends Controller
 
                                 if($podFirst){
                                     $podQuantity = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Hardback');
-                                    $royalty = number_format((float)$podTransactions->where('year', $year)->where('month', $month)->where('format', 'Hardback')->sum('royalty'), 2);
-                                    $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' => $podFirst->quantity, 'price' => $podFirst->price, 'revenue'=> 'ari', 'royalty' => $royalty]);
-                                    $pod1 = $podTransactions->where('year', $year)->where('month', $month)->where('format','Paperback')->first();
+                                    $revenue  = number_format((float)$podFirst->quantity * $podFirst->price ,2);
+                                    $royalty = number_format((float)$revenue * 0.15 ,2);
+                                    $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' => $podFirst->quantity, 'price' => $podFirst->price, 'revenue'=> $revenue, 'royalty' => $royalty]);
                                
                                         
                                         
                                     
                                         $royalty = number_format((float)$podTransactions->where('year', $year)->where('month', $month)->where('format', 'Paperback')->sum('royalty'), 2);
+
                                         $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Paperback', 'quantity' => $podFirst->quantity, 'price' => $podFirst->price,'revenue'=> 'ari', 'royalty' => $royalty]);
                                      }
                                        
