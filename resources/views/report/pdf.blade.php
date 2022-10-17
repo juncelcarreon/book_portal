@@ -83,7 +83,7 @@
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
 
                     <td style="border: 1px solid; width:70px; text-align:center;"></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;">{{$pod['revenue']}}</td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['royalty']}}</b></td>
                 </tr>
             </tbody>
