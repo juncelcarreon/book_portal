@@ -58,8 +58,9 @@
                 @endforeach
                 <tr>
                     <td colspan="4" style="border: 1px solid; width:90px; "><b>{{$totalPods['title']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['quantity']}}</b></td>
-                    <td style="border: 1px solid; width:70px; text-align:center;"></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['quantity']}}</b></td>
+                    <td style="border: 1px solid; width:70px; text-align:center;">       </td>     
+        
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$pod['revenue']}}</b></td>
                     <td style="border: 1px solid; width:70px; text-align:center;"><b>{{$totalPods['royalty']}}</b></td>
                 </tr>
