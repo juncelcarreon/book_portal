@@ -246,7 +246,7 @@ class GeneratePdfController extends Controller
                                         $hardBackQuan = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Trade Cloth/Laminate')->sum('quantity');
                                         $price = $podTransactions->where('year', $year)->where('month', $month)->where('format', 'Trade Cloth/Laminate')->first();
                                         $hardbackRev  = number_format((float)$price->price * $hardBackQuan ,2);
-                                        $royalty = number_format((float)$hardbackRev * 0.15 ,2);
+                                        $royalty = number_format((float)$hardbackRev * 0.15,2);
                                             $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>$price->price ,'revenue'=> $hardbackRev, 'royalty' => $royalty]);
                                         
                                       
