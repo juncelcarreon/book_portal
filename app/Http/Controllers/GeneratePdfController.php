@@ -98,7 +98,13 @@ class GeneratePdfController extends Controller
                                         $hardbackRev  = number_format($hardbackRev ,2);
                                         $royalty = number_format((float)$hardbackRev * 0.15 ,2);
 
-                                            $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>$hardBound->first()->price ,'revenue'=> $hardbackRev, 'royalty' => $royalty]);
+                                        if(!empty($hardBound->first()->price)){
+                                            $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' => $hardBound->first()->price,'revenue'=> $hardbackRev, 'royalty' => $royalty]);
+
+                                        }else{
+                                            $pods->push(['title' => $podFirst->book->title, 'year' => $year, 'month' => $month, 'format' => 'Hardback', 'quantity' =>  $hardBackQuan, 'price' =>'0' ,'revenue'=> $hardbackRev, 'royalty' => $royalty]);
+
+                                        }
                                      }
                                     
                                 
