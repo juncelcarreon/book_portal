@@ -62,10 +62,13 @@ class AuthorController extends Controller
          *   ---------------------------
          */
 
+        $request->uid = $this->uid($request);
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
         ]);
+
+        return $request;
 
         /**
          * Store the validated data to database
@@ -136,5 +139,10 @@ class AuthorController extends Controller
          */
 
         return redirect()->route('author.index')->with('success', 'Author has been successfully deleted from the database');
+    }
+
+    public function uid(Request $request)
+    {
+        return substr(md5(time()), 0, 8).'-'.substr(uniqid(), 0, 4).'-'.substr(md5(str_shuffle($request->firstname)), 0, 4).'-'.substr(bin2hex(random_bytes(10)), 0, 4).'-'.substr(sha1(time()), 0, 12);
     }
 }
